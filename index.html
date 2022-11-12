@@ -1,1 +1,26 @@
-hello world ok
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+  </head>
+  <script type="text/javascript">
+    var params = (new URL(document.location)).searchParams;
+    if(params.get("r")){
+      if(params.get("r")==0){
+        location.href = "https://ss1.xrea.com/ubrainjp.s239.xrea.com/test_v/tourderallyjp/";
+      }else{
+        location.href = "https://ss1.xrea.com/ubrainjp.s239.xrea.com/test_v/tourderallyjp//#/course/="+params.get("r");
+      }
+    }else{
+      location.href = "https://sites.google.com/view/ubrain/";
+    }
+  </script>
+
+  <body>
+    <noscript>
+      <p>javascriptを有効にしてアクセスしてください</p>
+    </noscript>
+  </body>
+  
+</html>
