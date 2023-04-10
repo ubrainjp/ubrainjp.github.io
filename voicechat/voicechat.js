@@ -143,7 +143,7 @@ function reqGpt(_interimTranscript){
     //console.log(data.choices[0].message.content);
     //console.log(data.usage.total_tokens);
     if(data.error){
-      resGPT(data.error.message);
+      alert("=error=\n"+data.error.message);
     }else{
       let res = data.choices[0].message.content;
       resGPT(res, data.usage);
@@ -158,6 +158,7 @@ function reqGpt(_interimTranscript){
 
 function restart(){
   disp.innerHTML = "";
+  document.getElementById("waitIcon").style.display = "none";
   sendArray = [];
   resArray = [];
 }
