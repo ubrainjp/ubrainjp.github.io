@@ -51,6 +51,7 @@ recognition.onerror = (event) => {
   }
 };
 
+var usagetoken = 0;
 function resGPT(_interimTranscript, token=null){
   speakOn(1, _interimTranscript);
   var content = '<div class="celebrityMessage px-3 mb-2">';
@@ -58,14 +59,15 @@ function resGPT(_interimTranscript, token=null){
   content += '<div class="celebrityMessage_t">';
   content += _interimTranscript.replace(/\n/g, "<br>");
   content += '</div>';
-  if(token){
-    let dollar = 0.002 * token.total_tokens / 1000;
-    content += '<div style="text-align:end;"><a href="https://platform.openai.com/account/usage" target="_blank">Token</a>';
-    content += ': Send '+token.prompt_tokens+',Receive '+token.completion_tokens+',';
-    content += 'Total '+token.total_tokens+' ($'+dollar.toFixed(6)+')</div>';
-  }
   content += '</div>';
   disp.innerHTML += content;
+  if(token){
+    usagetoken += token.total_tokens;
+    let dollar = 0.002 * usagetoken / 1000;
+    let ut = '<div style="text-align:end;"><a href="https://platform.openai.com/account/usage" target="_blank">Usage token</a>';
+    ut += ': '+usagetoken+' ($'+dollar.toFixed(6)+')</div>';
+    document.getElementById("usageToken").innerHTML = ut;
+  }
   document.getElementById("waitIcon").style.display = "none";
   document.getElementById("content_inner").scrollIntoView(false);
 }
@@ -159,6 +161,8 @@ function reqGpt(_interimTranscript){
 function restart(){
   disp.innerHTML = "";
   document.getElementById("waitIcon").style.display = "none";
+  usagetoken = 0;
+  document.getElementById("usageToken").innerHTML = "";
   sendArray = [];
   resArray = [];
 }
