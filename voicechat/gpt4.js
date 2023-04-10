@@ -253,7 +253,7 @@ window.addEventListener('load', function(){
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/ubrainjp.github.io/voicechat/serviceWorker.js',
+  navigator.serviceWorker.register('/voicechat/serviceWorker.js',
        { scope: '/voicechat/' })
   .then(function(reg) {
     console.log('serviceWorker:' + reg.scope);
