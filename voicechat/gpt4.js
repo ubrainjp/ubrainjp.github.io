@@ -254,7 +254,7 @@ window.addEventListener('load', function(){
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/voicechat/serviceWorker.js',
-       { scope: '/ubrainjp.github.io/voicechat/' })
+       { scope: '/voicechat/' })
   .then(function(reg) {
     console.log('serviceWorker:' + reg.scope);
   }).catch(function(error) {
