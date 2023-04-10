@@ -1,6 +1,7 @@
 {
   "name": "Voicechat GPT",
   "short_name": "Voicechat GPT",
+  "start_url": "/ubrainjp.github.io/voicechat/",
   "display": "minimal-ui",
   "background_color": "#ffffff",
   "icons": [
