@@ -222,12 +222,12 @@ function modeSel(_this){
     document.getElementById("content").style.display = "";
     document.getElementById("setting").style.display = "none";
     params.testMode = false;
-    recOn(1);
+    document.querySelector('#result-div').innerHTML = "マイクアイコンを押して開始してください"; 
   }else if(_this.id == "testModeBtn"){
     document.getElementById("content").style.display = "";
     document.getElementById("setting").style.display = "none";
     params.testMode = true;
-    recOn(1);
+    document.querySelector('#result-div').innerHTML = "マイクアイコンを押して開始してください"; 
   }else if(_this.id == "settingBtn"){
     document.getElementById("content").style.display = "none";
     document.getElementById("setting").style.display = "";
