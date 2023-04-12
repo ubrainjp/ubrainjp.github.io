@@ -85,6 +85,9 @@ function recOn(force){
     recognition.start();
     micState = true;
     micIcon.src = "img/mic_gr.gif";
+    if(force==3 && !params.testMode){
+      gtag('event', 'micOn', {'event_category': 'micOn'});
+    }
   }else if((micState && force == 3) || force == 0){
     recognition.stop();
     micState = false;
@@ -167,7 +170,7 @@ function restart(){
   resArray = [];
 }
 
-var paramsDef = {speechRate:1, speechPitch:1, modeSel:"testModeBtn", testMode:true, 
+var paramsDef = {doui:false, speechRate:1, speechPitch:1, modeSel:"testModeBtn", testMode:true, 
   character:"", temperature:1, maxToken:250, history:3};//apiKey:"", 
 var params = {};
 let paramsDefKeys = Object.keys(paramsDef);
@@ -183,7 +186,11 @@ if(localStorage.ubrainjp_GPT){
 }
 //console.log(!localStorage.ubrainjp_GPT);
 function setParams(_this){
-  params[_this.id] = _this.value;
+  if(_this.type == "checkbox"){
+    params[_this.id] = _this.checked;
+  }else{
+    params[_this.id] = _this.value;
+  }
   onParams();
 }
 function onParams(dafault=false){
@@ -197,7 +204,9 @@ function onParams(dafault=false){
   for(paramsKey of paramsKeys){
     if(paramsKey != "modeSel" && paramsKey != "testMode" ){
       var dom = document.getElementById(paramsKey);
-      if(dom.options){
+      if(dom.type == "checkbox"){
+        dom.checked = params[paramsKey];
+      }else if(dom.options){
         let options = dom.options;
         for (let option of options) {
           if(option.value == params[paramsKey]) option.selected = true;
@@ -246,6 +255,13 @@ function apiKeyClear(){
   document.getElementById("apiKey").value = "";
   params.apiKey = "";
   localStorage.ubrainjp_GPT = JSON.stringify(params);
+}
+
+function douiCheck(){
+  if(!params.doui){
+    document.getElementById("doui").focus();
+    alert("利用規約に同意してください");
+  }
 }
 
 window.addEventListener('load', function(){

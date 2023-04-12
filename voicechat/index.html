@@ -40,7 +40,11 @@
             </div>
         </div>
         <div id="setting">
-            <table class="table table-striped">
+            <div id="riyoukiyaku" style="text-align:center;" class="mb-3">
+                <input type="checkbox" id="doui" onchange="setParams(this);">&nbsp;&nbsp;
+                <a href="https://ubrainjp.github.io/riyoukiyaku">利用規約</a>に同意する
+            </div>
+            <table class="table table-striped" onclick="douiCheck();">
                 <tr><td style="width:8em;">Apikey&nbsp;&nbsp;<button id="apiKeyClearBtn" class="btn btn-danger btn-sm" onclick="apiKeyClear()">Clear</button></td>
                     <td><input type="password" id="apiKey" class="form-control" onchange="setParams(this)">
                         <div class="form-text">
@@ -113,7 +117,7 @@
                 <div><a href="https://ubrainjp.github.io/privacy_policy.html" target="_blank">プライバシーポリシー</a></div>
             </div>
             <img src="img/QR.png">
-            <div>&copy;u-brain.jp since 2022</div>
+            <div>&copy;u-brain.jp since 2021</div>
         </footer>
     </main>
 </body>
