@@ -226,7 +226,7 @@ function onParams(dafault=false){
         for (let option of options) {
           if(option.value == params[paramsKey]) option.selected = true;
         }
-      }else{
+      }else if(params[paramsKey] != ""){
         dom.value = params[paramsKey];
       }
     }
