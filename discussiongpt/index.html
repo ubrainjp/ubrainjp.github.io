@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> 	
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="discussion.css">
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="manifest" href="manifest.json">
+    <title>Discussion GPT</title>
+    <meta name="description" content="ChatGPT同士でディスカッションするアプリ。AIのキャラクターを指定してユニークな会話が楽しめます。">
+    <meta name="keywords" content="ChatGPT,音声,チャット,会話,アプリ">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+    <main>
+        <header class="p-2">
+            <div id="title" class="pt-3">ChatGPT同士でディスカッションするアプリ</div>
+        </header>
+        <navi class="mb-3 py-2">
+            <button id="discussionBtn" class="naviItem me-3 btn btn-light" onclick="modeSel(this)">Discussion</button>
+            <button id="settingBtn" class="naviItem me-3 btn btn-light" onclick="modeSel(this)">Setting</button>
+        </navi>
+        <div id="content">
+            <div id="content_inner">
+                <div id="themeDiv" class="px-3 mb-2">
+                    ディスカッションのテーマ<br>
+                    <input type="text" id="theme" class="form-control">
+                </div>
+                <div id="disp" class="mb-3"></div>
+                <div id="waitIcon" style="text-align:center;display:none;" class="mb-3">
+                    <img src="img/loader.gif">
+                </div>
+                <div id="mic_speak" class="controlBtn mb-3">
+                    <img src="img/play.png" id="playIcon" onclick="start();">
+                    <img src="img/speaker.png" id="speakIcon" onclick="speakOn(0);">
+                    <img src="img/reload.png" id="reloadIcon" onclick="restart();">
+                </div>
+                <div id="usageToken" class="px-3" style="text-align:right;"></div>
+            </div>
+        </div>
+        <div id="setting">
+            <div id="riyoukiyaku" style="text-align:center;" class="mb-3">
+                <input type="checkbox" id="doui" onchange="setParams(this);">&nbsp;&nbsp;
+                <a href="https://ubrainjp.github.io/riyoukiyaku">利用規約</a>に同意する
+            </div>
+            <table class="table table-striped" onclick="douiCheck();">
+                <tr><td style="width:8em;">Apikey&nbsp;&nbsp;<button id="apiKeyClearBtn" class="btn btn-danger btn-sm" onclick="apiKeyClear()">Clear</button></td>
+                    <td><input type="password" id="apiKey" class="form-control" onchange="setParams(this)">
+                        <div class="form-text">
+                            ＝ApiKeyの取得方法＝<br>
+                            <a href="https://platform.openai.com/account/api-keys" target="_blank">platform.openai.com/account/api-keys</a>
+                            のリンクよりOpenAiにアカウントを作成してApiKey作成します。<br>
+                            新規でアカウントを作成した場合は無料枠を<a href="https://platform.openai.com/account/usage" target="_blank">platform.openai.com/account/usage</a>
+                            にて、確認することができます。<br>
+                            無料枠が無い場合は<a href="https://platform.openai.com/account/billing/overview" target="_blank">platform.openai.com/account/billing/overview</a>
+                            より、クレジットカードの登録を行います。<br>
+                            ※ApiKeyはブラウザのローカルストレージに保存されます。Cookieのように外部送信はされませんが、共用端末への保存は避けてください。
+                        </div>
+                    </td></tr>
+                <tr><td>表示名_A</td><td><input type="text" id="dispName_0" class="form-control" onchange="setParams(this)">
+                    <div class="form-text">
+                        1人目のAIの対話画面での表示名を設定します。
+                    </div></td></tr>
+                <tr><td>キャラ設定_A</td><td><textarea id="character_0" class="form-control" onchange="setParams(this)"></textarea>
+                    <div class="form-text">
+                        1人目のAIの"○○になりきる","語尾はニャー","口調は激しい"など複数の性格を設定できます。
+                    </div></td></tr>
+                <tr><td>創造性_A</td>
+                    <td><select id="temperature_0" class="form-control" onchange="setParams(this)">
+                    <option value="0">厳格</option><option value="0.5">真面目</option><option value="1">創造的</option>
+                    <option value="1.5">奔放</option><option value="2">宇宙人</option></select>
+                    <div class="form-text">
+                        1人目のAIの回答の創造性度合いを設定します。
+                    </div></td></tr>
+                <tr><td>読み上げ速度_A</td>
+                    <td><select id="speechRate" class="form-control" onchange="setParams(this)">
+                    <option value="0.5">x0.5</option><option value="1">x1</option><option value="2">x2</option>
+                    <option value="3">x3</option><option value="4">x4</option><option value="5">x5</option></select>
+                    <div class="form-text">
+                        1人目のAIの読み上げの速度を設定します。
+                    </div></td></tr>
+                <tr><td>読み上げトーン_A</td>
+                    <td><select id="speechPitch" class="form-control" onchange="setParams(this)">
+                    <option value="0">Low</option><option value="1">Middle</option><option value="2">High</option></select>
+                    <div class="form-text">
+                        1人目のAIの読み上げのトーン（Low：男性的、High：女性的）を設定します。    
+                    </div></td></tr>
+                <tr><td>表示名_B</td><td><input type="text" id="dispName_1" class="form-control" onchange="setParams(this)">
+                    <div class="form-text">
+                        2人目のAIの対話画面での表示名を設定します。
+                    </div></td></tr>
+                <tr><td>キャラ設定_B</td><td><textarea id="character_1" class="form-control" onchange="setParams(this)"></textarea>
+                    <div class="form-text">
+                        2人目のAIの"○○になりきる","語尾はニャー","口調は激しい"など複数の性格を設定できます。
+                    </div></td></tr>
+                <tr><td>創造性_B</td>
+                    <td><select id="temperature_1" class="form-control" onchange="setParams(this)">
+                    <option value="0">厳格</option><option value="0.5">真面目</option><option value="1">創造的</option>
+                    <option value="1.5">奔放</option><option value="2">宇宙人</option></select>
+                    <div class="form-text">
+                        2人目のAIの回答の創造性度合いを設定します。
+                    </div></td></tr>
+                <tr><td>読み上げ速度_B</td>
+                    <td><select id="speechRate_1" class="form-control" onchange="setParams(this)">
+                    <option value="0.5">x0.5</option><option value="1">x1</option><option value="2">x2</option>
+                    <option value="3">x3</option><option value="4">x4</option><option value="5">x5</option></select>
+                    <div class="form-text">
+                        2人目のAIの読み上げの速度を設定します。
+                    </div></td></tr>
+                <tr><td>読み上げトーン_B</td>
+                    <td><select id="speechPitch_1" class="form-control" onchange="setParams(this)">
+                    <option value="0">Low</option><option value="1">Middle</option><option value="2">High</option></select>
+                    <div class="form-text">
+                        2人目のAIの読み上げのトーン（Low：男性的、High：女性的）を設定します。    
+                    </div></td></tr>
+                <tr><td>受信Token上限</td>
+                    <td><select id="maxToken" class="form-control" onchange="setParams(this)">
+                    <option value="50">50</option><option value="100">100</option><option value="250">250</option>
+                    <option value="500">500</option><option value="1000">1000</option></select>
+                    <div class="form-text">
+                        1回の文書作成に使用するTokenの上限を設定します。
+                    </div></td></tr>
+                <tr><td>履歴参照回数</td>
+                    <td><select id="history" class="form-control" onchange="setParams(this)">
+                    <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                    <option value="3">3</option><option value="5">5</option><option value="10">10</option></select>
+                    <div class="form-text">
+                        文脈を理解するために送信する対話履歴の回数を設定します。回数が多くなるほど使用するTokenの量が増えます。
+                    </div></td></tr>
+                <tr><td>終了回数</td>
+                    <td><select id="endCount" class="form-control" onchange="setParams(this)">
+                    <option value="3">3</option><option value="5">5</option><option value="10">10</option>
+                    <option value="20">20</option></select>
+                    <div class="form-text">
+                        対話を終了する回数。    
+                    </div></td></tr>
+            </table>
+            <div style="width:100%;text-align:center;">
+                <button class="btn btn-success" onclick="onParams(true);">初期設定に戻す</button>
+            </div>
+        </div>
+        <footer class="mt-3 p-2">
+            <div id="shares">
+                <button class="btn btn-primary btn-sm share-btn s_twitter">
+                    <i class="fa fa-twitter"></i> Twitter
+                </button>
+                <button class="btn btn-primary btn-sm share-btn s_facebook">
+                    <i class="fa fa-facebook"></i> Facebook
+                </button>
+                <div class="line-it-button" data-lang="ja" data-type="share-a" data-env="REAL" data-url="https://ubrainjp.github.io/discussiongpt" data-color="default" data-size="large" data-count="false" data-ver="3" style="display: none;"></div>
+                <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+            </div>
+            <div style="display:flex;justify-content:space-evenly;" class="p-2">
+                <div><a href="https://ubrainjp.github.io" target="_blank">コーポレートサイト</a></div>
+                <div><a href="https://ubrainjp.github.io/privacy_policy.html" target="_blank">プライバシーポリシー</a></div>
+            </div>
+            <img src="img/QR.png">
+            <div>&copy;u-brain.jp since 2021</div>
+        </footer>
+    </main>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+<script src="SocialShare.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X4LWD58EYT"></script>
+<script src="discussion.js"></script>
+</html>

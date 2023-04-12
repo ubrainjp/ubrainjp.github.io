@@ -1,0 +1,25 @@
+{
+  "name": "Discussion GPT",
+  "short_name": "Discussion GPT",
+  "start_url": "/discussiongpt/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#0971ac",
+  "icons": [{
+      "src": "/discussiongpt/img/icon48.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  }, {
+      "src": "/discussiongpt/img/icon64.png",
+    "sizes": "64x64",
+    "type": "image/png"
+  }, {
+      "src": "/discussiongpt/img/icon128.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  }, {
+      "src": "/discussiongpt/img/icon256.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  }]
+}
