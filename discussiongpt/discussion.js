@@ -98,6 +98,7 @@ speech.addEventListener("end", (event) => {
 
 var sendArray = [[],[]];
 var resArray = [[],[]];
+var firstArray = [[],[]];
 function reqGpt(){
   if(sendArray[gptNo].length == params.endCount){
     startFlg = false;
@@ -108,13 +109,10 @@ function reqGpt(){
   let _interimTranscript = resArray[gptNo][resArray[gptNo].length-1];
   if(!_interimTranscript){
     _interimTranscript = document.getElementById("theme").value;
+    firstArray[gptNo][0] = _interimTranscript;
     document.getElementById("theme").value = "";
   }
-  if(gptNo == 0){
-    gptNo = 1;
-  }else{
-    gptNo = 0;
-  }
+  gptNo = (gptNo == 0) ? 1 : 0;
   var end = "";
   if(sendArray[gptNo].length == params.endCount - 1){
     end = "。この回で対話を終了します。";
@@ -125,6 +123,9 @@ function reqGpt(){
   }
   if(gptNo == 1 && params.character_1){
     messages.push({'role': 'system', 'content': params.character_1 + end});
+  }
+  if(firstArray[gptNo][0]){
+    messages.push({'role': 'assistant', 'content': firstArray[gptNo][0] });
   }
   var i = sendArray[gptNo].length - parseInt(params.history);
   if(i < 0){ i = 0; }
@@ -179,6 +180,7 @@ function restart(){
   document.getElementById("usageToken").innerHTML = "";
   sendArray = [[],[]];
   resArray = [[],[]];
+  firstArray = [[],[]];
   document.getElementById("themeDiv").style.display = "";
   startFlg = false;
   playIcon.src = "img/play.png";
@@ -291,3 +293,5 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-X4LWD58EYT');
+
+
