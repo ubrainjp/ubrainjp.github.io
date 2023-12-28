@@ -74,7 +74,7 @@ async function audioConnect(stream) {
   delayNode.connect(audioCtx.destination);
   */
 
-  const impulse = await setupSample(audioCtx, './1st_baptist_nashville_balcony.wav');
+  const impulse = await setupSample(audioCtx, './reverb.wav');
   const convolverNode =  new ConvolverNode(audioCtx, {buffer: impulse});
   biquadFilter.connect(convolverNode);
   gainWet = audioCtx.createGain();
