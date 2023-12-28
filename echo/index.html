@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>echo</title>
+	<style>
+    input[type="range"] {
+      width: 300px;
+    }
+	</style>
+</head>
+
+<body>
+  【ブラウザーでエコー】<br>
+  Dry<br>
+  <input id="gainDry" type="range" min="0" max="10" step="0.1" value="1"><br>
+  Wet<br>
+  <input id="gainWet" type="range" min="0" max="10" step="0.1" value="1"><br>
+  Highpass<br>
+  <input id="highpass" type="range" min="0" max="1000" step="50" value="400"><br>
+  Lowpass<br>
+  <input id="lowpass" type="range" min="1000" max="20000" step="1000" value="20000"><br>
+</body>
+
+<script>
+async function setupSample(audioCtx, samplePath) {
+  const response = await fetch(samplePath);
+  const arrayBuffer = await response.arrayBuffer();
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+  return audioBuffer;
+};
+
+async function audioConnect(stream) {
+  const audioCtx = new AudioContext();
+  const source = audioCtx.createMediaStreamSource(stream);
+
+  const biquadFilterH = audioCtx.createBiquadFilter();
+  biquadFilterH.type = "highpass";
+  biquadFilterH.frequency.value = 400;
+  //biquadFilter.gain.value = 1;
+  biquadFilterH.Q.value = 6;
+  source.connect(biquadFilterH);
+  let highpassR = document.getElementById("highpass");
+  highpassR.addEventListener("change", ()=>{
+    biquadFilterH.frequency.value = highpassR.value;
+  });
+
+  const biquadFilter = audioCtx.createBiquadFilter();
+  biquadFilter.type = "lowpass";
+  biquadFilter.frequency.value = 20000;
+  //biquadFilter.gain.value = 1;
+  biquadFilter.Q.value = 6;
+  biquadFilterH.connect(biquadFilter);
+  let lowpassR = document.getElementById("lowpass");
+  lowpassR.addEventListener("change", ()=>{
+    biquadFilter.frequency.value = lowpassR.value;
+  });
+
+  gainDry = audioCtx.createGain();
+  gainDry.gain.value = 1;
+  biquadFilter.connect(gainDry);
+  gainDry.connect(audioCtx.destination);
+  let gainDryR = document.getElementById("gainDry");
+  gainDryR.addEventListener("change", ()=>{
+    gainDry.gain.value = gainDryR.value;
+  });
+
+  /*
+  const delayNode = new DelayNode(audioCtx, { delayTime: 0.1 });
+  const delayFeedBackNode = new GainNode(audioCtx, { gain: 0.2 });
+  biquadFilter.connect(delayNode);
+  delayNode.connect(delayFeedBackNode);
+  delayFeedBackNode.connect(delayNode);
+  delayNode.connect(audioCtx.destination);
+  */
+
+  const impulse = await setupSample(audioCtx, './1st_baptist_nashville_balcony.wav');
+  const convolverNode =  new ConvolverNode(audioCtx, {buffer: impulse});
+  biquadFilter.connect(convolverNode);
+  gainWet = audioCtx.createGain();
+  gainWet.gain.value = 1;
+  convolverNode.connect(gainWet);
+  gainWet.connect(audioCtx.destination);
+  let gainWetR = document.getElementById("gainWet");
+  gainWetR.addEventListener("change", ()=>{
+    gainWet.gain.value = gainWetR.value;
+  });
+}
+
+if (navigator.mediaDevices) {
+  console.log("getUserMedia supported.");
+  navigator.mediaDevices
+    .getUserMedia({ audio: {echoCancellation: false}, video: false })
+    .then((stream) => {
+      //video.srcObject = stream;
+      //video.onloadedmetadata = (e) => {
+      //  video.play();
+      //  video.muted = true;
+      //};
+      audioConnect(stream);
+    })
+    .catch((err) => {
+      console.log(`The following gUM error occurred: ${err}`);
+    });
+} else {
+  console.log("getUserMedia not supported on your browser!");
+}
+
+</script>
