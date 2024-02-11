@@ -1,0 +1,132 @@
+.cordAppContent {
+  width: 100%;
+  margin: auto;
+  background-color: #f5deb3;
+  font-size: clamp(0.1em, 2.5vw, 1.5em);
+  position: relathive;
+  padding: 0.5em 0;
+  }
+  .cordAppContent .enable,
+  .cordAppContent #beats,
+  .cordAppContent table,
+  .cordAppContent .kaisetsu{
+  width: 96%;
+  margin: auto;
+  margin-bottom: 0.2em;
+  }
+  .cordAppContent .sequence,
+  .cordAppContent .tridiaChange{
+  width: 96%;
+  margin: auto;
+  }
+  .cordAppContent .enable {
+  font-size: 1em;
+  color: #db0049;
+  text-decoration: underline;
+  margin-bottom: 0.5em;
+  display: none;
+  /* border-radius: 2%; */
+  /* box-shadow: 1px 1px 2px 2px #999; */
+  /* background-color: whitesmoke; */
+  }
+  .cordAppContent .enable:hover{
+  cursor: pointer;
+  }
+  .cordAppContent input[type="button"],
+  .cordAppContent button {
+  line-height: 1.5rem;
+  padding: 0.2em 0.8em;
+  border: 0px;
+  border-radius: 10%;
+  box-shadow: 1px 1px 2px 2px #999;
+  }
+  .cordAppContent .Beats input[type="button"]:not(.selected) {
+  background-color: #ddd;
+  }
+  .cordAppContent #tempo{
+  width: 100px;
+  }
+  .cordAppContent .nowPlaying {
+  margin-top: 0.2em;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  }
+  .cordAppContent table {
+  /* border-collapse: collapse; */
+  table-layout: fixed;
+  }
+  .cordAppContent caption {
+  text-align: left;
+  font-size: clamp(0.1em, 1.5vw, 1em);
+  }
+  .cordAppContent caption::before{
+  content: "\0266c:";
+  }
+  .cordAppContent th, .cordAppContent td{
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  }
+  .cordAppContent th {
+  background-color: #eee;
+  /*border-radius: 15%;*/
+  }
+  .cordAppContent td {
+  background-color: #ddd;
+  line-height: 2rem;
+  /*border-radius: 20%;*/
+  box-shadow: 1px 1px 2px 2px #999;
+  }
+  .cordAppContent .cordBtn td:not(.selected),
+  .cordAppContent .sequence input[type="button"]:not(.selected),
+  .cordAppContent .sequence button:not(.selected) {
+  background-color: #ffdacc;
+  }
+  .cordAppContent .Degree-Change td,
+  .cordAppContent .Key-Shift td,
+  .cordAppContent .major2minor td,
+  .cordAppContent .triad2dominant td{
+  line-height: 1.5rem;
+  }
+  .cordAppContent .selected{
+  background-color: #ff8f66;/*#ff6933*/
+  }
+  .cordAppContent .dispNone{
+  display: none;
+  }
+  .cordAppContent .tth{
+    width: 9em;
+  }
+  .cordAppContent .bgGray{
+    background-color: #ddd !important;
+    color: #999;
+  }
+  .cordAppContent .bgLight{
+    background-color: #efe5e2 !important;
+  }
+  .cordAppContent .kaisetsu{
+    font-size: 0.8em;
+  }
+  #footer {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+  }
+  #appName {
+    font-size: 1.3em;
+    text-decoration: underline;
+    font-style: italic;
+    margin-right: 0.5em;
+    color: #ff2f00;
+  }
+
+  @media screen and (min-width: 769px) {
+  .cordAppContent {
+  font-size: clamp(0.1em, 2vw, 1em);
+  }
+  .cordAppContent caption {
+  font-size: clamp(0.1em, 1vw, 1em);
+  }
+}
