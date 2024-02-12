@@ -48,17 +48,18 @@
           <td id="_dominant" onclick="cordApp.triad2dominant(this);">4音構成
         </tr>
       </table>
-      <div style="height: 0.9em;"></div>
         
-      <!--<table id="degreeChange" class="Degree-Change">
+      <table id="degreeChange" class="Degree-Change">
         <caption class="Information dispNone">Degree-Change</caption>
         <tr>
-          <th>Degree-Change</th>
-          <td id=0 class="selected" onclick="cordApp.degChange(0);">CordName
-          <td id=1 onclick="cordApp.degChange(1);">Degree(Major)
-          <td id=2 onclick="cordApp.degChange(2);">Degree(Minor)
+          <th class="tth">表示切替3</th>
+          <td id=0 class="selected" onclick="cordApp.degChange(0);">音名表記
+          <td id=1 onclick="cordApp.degChange(1);">度数(長調表記)
+          <td id=2 onclick="cordApp.degChange(2);">度数(短調表記)
         </tr>
-      </table>-->
+      </table>
+      <div class="kaisetsu">・短調の度数表示は、Ⅵm,Ⅶm-5～（長調表記）とⅠm,Ⅱm-5～（短調表記）を使い分ける</div>
+      <div style="height: 0.9em;"></div>
       
       <table id="keys" class="Key-Shift">
         <caption class="Information dispNone">Key-Shift</caption>
@@ -227,8 +228,8 @@
         </tr>
         <tr class="Degree m-show">
           <th class="tth">度数(短調)</th>
-          <th>&#8544;(m)<th>&#8545;(m-5)<th>&#8546;(M)<th>&#8547;(m)<th>&#8548;(m)
-            <th>&#8549;(M)<th>&#8550;<th>&#8544;(m)<th>&#8545;(m-5)
+          <th>&#8544;(m)<th>&#8545;(m-5)<th>b&#8546;(M)<th>&#8547;(m)<th>&#8548;(m)
+          <th>b&#8549;(M)<th>b&#8550;<th>&#8544;(m)<th>&#8545;(m-5)
         </tr>
         <tr class="Kinou">
           <th class="tth">機能</th>
@@ -259,8 +260,8 @@
         </tr>
         <tr class="Degree m-show">
           <th class="tth">度数(短調)</th>
-          <th>&#8548;/&#8544;<th>&#8548;/&#8545;<th>&#8548;/&#8546;<th>&#8548;/&#8547;<th>&#8548;/&#8548;
-          <th>&#8548;/&#8549;<th>&#8548;/&#8550;<th>&#8548;/&#8544;<th>&#8548;/&#8545;
+          <th>&#8548;/&#8544;<th>&#8548;/&#8545;<th>&#8548;/b&#8546;<th>&#8548;/&#8547;<th>&#8548;/&#8548;
+          <th>&#8548;/b&#8549;<th>&#8548;/b&#8550;<th>&#8548;/&#8544;<th>&#8548;/&#8545;
         </tr>
         <tr class="Kinou">
           <th class="tth">機能</th>
@@ -273,7 +274,10 @@
           <td class="bgLight" id="G"><td class="bgLight" id="Am"><td class="bgLight" id="Bm-5">
         </tr>
       </table>
-      <div class="kaisetsu">・セカンダリードミナントは必ず度数の分子のコード（＊）へ進行する（4音構成にはなりえる）</div>
+      <div class="kaisetsu">
+        ・セカンダリードミナントは必ず度数の分子のコード（＊）へ進行する（4音構成も含む）<br/>
+        ・度数表記は2種類ある（例：Ⅱ7＝Ⅴ7/Ⅴ）
+      </div>
       <div style="height: 0.9em;"></div>
       
       <table class="cordBtn Tritone-Substitution">
@@ -335,8 +339,8 @@
         </tr>
         <tr class="Degree m-show">
           <th class="tth">度数(短調)</th>
-          <th>#&#8550;°,∅<th>#&#8544;°,∅<th>&#8545;°,∅<th>#&#8546;°,∅<th>#&#8547;°,∅<th>&#8548;°,∅
-          <th>#&#8549;°,∅<th>#&#8550;°,∅<th>#&#8544;°,∅
+          <th>&#8550;°,∅<th>#&#8544;°,∅<th>&#8545;°,∅<th>&#8546;°,∅<th>#&#8547;°,∅<th>&#8548;°,∅
+          <th>&#8549;°,∅<th>&#8550;°,∅<th>#&#8544;°,∅
         </tr>
         <tr class="Passing-Diminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾃﾞｨﾐﾆｯｼｭ</th>
@@ -357,8 +361,8 @@
         </tr>
         <tr class="Degree m-show">
           <th class="tth">度数(短調)</th>
-          <th>b&#8545;°,∅<th>&#8546;°,∅<th>b&#8547;°,∅<th>b&#8548;°,∅
-          <th>&#8549;°,∅<th>b&#8550;°,∅<th>b&#8544;°,∅<th>b&#8545;°,∅<th>&#8546;°,∅
+          <th>b&#8545;°,∅<th>b&#8546;°,∅<th>b&#8547;°,∅<th>b&#8548;°,∅
+          <th>b&#8549;°,∅<th>bb&#8550;°,∅<th>b&#8544;°,∅<th>b&#8545;°,∅<th>b&#8546;°,∅
         </tr>
         <tr class="Major">
           <th class="tth">*</th>
