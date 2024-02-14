@@ -384,9 +384,9 @@ class classCordApp{
     //this._load.classList.remove("disable");
   }
 
-  triad2dominant(obj){
-    if(!obj){ obj = document.querySelector("#triad2dominant .selected"); }
-    document.querySelectorAll("#triad2dominant .selected").forEach(function(e){
+  triad2dia(obj){
+    if(!obj){ obj = document.querySelector("#triad2dia .selected"); }
+    document.querySelectorAll("#triad2dia .selected").forEach(function(e){
       e.classList.remove("selected");
     });
     obj.classList.add("selected");
@@ -395,9 +395,14 @@ class classCordApp{
         x.classList.remove("dispNone");});
       document.querySelectorAll(".Diatonic").forEach(function(x){
         x.classList.add("dispNone");});
-    }else{
+    }else if(obj.id=="_dia"){
       document.querySelectorAll(".Triad").forEach(function(x){
         x.classList.add("dispNone");});
+      document.querySelectorAll(".Diatonic").forEach(function(x){
+        x.classList.remove("dispNone");});
+    }else{
+      document.querySelectorAll(".Triad").forEach(function(x){
+        x.classList.remove("dispNone");});
       document.querySelectorAll(".Diatonic").forEach(function(x){
         x.classList.remove("dispNone");});
     }
@@ -433,10 +438,11 @@ function cordAppInitLoad(){
   //enable.style.display = "block";
   cordApp.enable(enab[0],enab[1],enab[2],enab[3]);
   cordApp.major2minor();
-  cordApp.triad2dominant();
+  cordApp.triad2dia();
 }
 
 if(document.querySelector(".cordAppContent")){
   cordAppInitShow();
   cordAppInitLoad();
 }
+

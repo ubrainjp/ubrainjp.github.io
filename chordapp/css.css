@@ -87,7 +87,7 @@
   .cordAppContent .Degree-Change td,
   .cordAppContent .Key-Shift td,
   .cordAppContent .major2minor td,
-  .cordAppContent .triad2dominant td{
+  .cordAppContent .triad2dia td{
   line-height: 1.5rem;
   }
   .cordAppContent .selected{
