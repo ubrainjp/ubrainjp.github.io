@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css.css" type="text/css">
+    <link rel="stylesheet" href="css.css?v=0" type="text/css">
     <title>ChordApp</title>
   </head>
   <body>
     <div class="cordAppContent">
  
-      <div class="enable" onclick="cordApp.enable();">
+      <div class="enable" onclick="cordApp.enable(4);">
         <!--(beat,tmp,deg,[key0,key1])-->
         &#9632;アプリの電源を入れる
       </div>
@@ -206,14 +206,14 @@
         </tr>
       </table>
 
-      <table class="cordBtn Sus4 M-show">
+      <table class="cordBtn Sus4">
         <caption class="Information dispNone">sus4, _7sus4</caption>
         <tr class="Sus4 Triad">
           <th class="tth">Sus4</th>
           <td><td>
           <td id="Csus4"><td><td><td><td id="Gsus4"><td><td>
         </tr>
-        <tr class="Sus4 Diatonic M-show">
+        <tr class="Sus4 Diatonic">
           <th class="tth">Sus4</th>
           <td><td>
           <td id="CM7sus4"><td><td><td><td id="G7sus4"><td><td>
@@ -405,5 +405,5 @@
     </div><!--<div class="cordAppContent">-->
 
   </body>
-  <script src="js.js"></script>
+  <script src="js.js?v=0"></script>
 </html>
