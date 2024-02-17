@@ -121,6 +121,11 @@
     margin-right: 0.5em;
     color: #ff2f00;
   }
+  #sticky_top {
+    position: sticky;
+    top: 0;
+    background-color: #f5deb3;
+  }
 
   @media screen and (min-width: 769px) {
   .cordAppContent {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css.css?v=0" type="text/css">
+    <link rel="stylesheet" href="css.css?v=1" type="text/css">
     <title>ChordApp</title>
   </head>
   <body>
@@ -14,20 +14,22 @@
         <!--(beat,tmp,deg,[key0,key1])-->
         &#9632;アプリの電源を入れる
       </div>
-        
-      <div id="beats" class="Beats">
-        <span id="appName">ChordApp</span>
-        <input type="button" class="selected" value="1/4" onclick="cordApp.beatsf(1);">
-        <input type="button" value="2/4" onclick="cordApp.beatsf(2);">
-        <input type="button" value="3/4" onclick="cordApp.beatsf(3);">
-        <input type="button" value="4/4" onclick="cordApp.beatsf(4);">
-        &#9833;=<span id="bpm">90</span>
-        <input type="range" id="tempo" min=60 max=160 step=1 value=90 onchange="cordApp.tempo(this.value);">
-        <div class="nowPlaying">
-          <i>NowPlaying:&nbsp;<span id="nowPlaying"></span></i>
+      
+      <div id="sticky_top">
+        <div id="beats" class="Beats">
+          <span id="appName">ChordApp</span>
+          <input type="button" class="selected" value="1/4" onclick="cordApp.beatsf(1);">
+          <input type="button" value="2/4" onclick="cordApp.beatsf(2);">
+          <input type="button" value="3/4" onclick="cordApp.beatsf(3);">
+          <input type="button" value="4/4" onclick="cordApp.beatsf(4);">
+          &#9833;=<span id="bpm">90</span>
+          <input type="range" id="tempo" min=60 max=160 step=1 value=90 onchange="cordApp.tempo(this.value);">
+          <div class="nowPlaying">
+            <i>NowPlaying:&nbsp;<span id="nowPlaying"></span></i>
+          </div>
         </div>
+        <div style="height: 0.9em;"></div>
       </div>
-      <div style="height: 0.9em;"></div>
 
       <table id="major2minor" class="major2minor">
         <tr>
@@ -378,25 +380,6 @@
         ・機能は概ねドミナントだが、機能感をハッキリさせたくない場合にも使用される
       </div>
       
-      <!--<div id="tridiaChange" class="tridiaChange">
-        <input type="button" value="Triad-Diatonic" onclick="tridiaChange();">
-        <input type="button" value="Information" onclick="infoChange();">
-      </div>
-
-      <script>
-        document.querySelectorAll(".Diatonic").forEach(function(x){
-          x.classList.toggle("dispNone");});
-        function tridiaChange(){
-          document.querySelectorAll(".Triad").forEach(function(x){
-            x.classList.toggle("dispNone");});
-          document.querySelectorAll(".Diatonic").forEach(function(x){
-            x.classList.toggle("dispNone");});
-        }
-        function infoChange(){
-          document.querySelectorAll(".Information").forEach(function(x){
-            x.classList.toggle("dispNone");});
-        }
-      </script>-->
       <br/>
       <div id="footer">
         ©u-brain.jp<br/>
@@ -405,5 +388,5 @@
     </div><!--<div class="cordAppContent">-->
 
   </body>
-  <script src="js.js?v=0"></script>
+  <script src="js.js?v=1"></script>
 </html>
