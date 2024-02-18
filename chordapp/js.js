@@ -18,7 +18,7 @@ class classCordApp{
     this.degState = 0;
     this.keysState = 6;
     this.keys = 0;
-    this.maxNotes = 4;
+    this.maxNotes = 12;
   }
   
   getSound(){
