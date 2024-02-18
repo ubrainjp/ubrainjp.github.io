@@ -38,9 +38,9 @@
       <table id="major2minor" class="major2minor">
         <tr>
           <th class="tth">表示切替1</th>
-          <td id="_2" onclick="cordApp.major2minor(this);">
-            <span class="lang" en="Relative" jp="平行調">長調&短調</span>
-          <td id="_0" class="selected" onclick="cordApp.major2minor(this);">
+          <td id="_2" class="selected" onclick="cordApp.major2minor(this);">
+            <span class="lang" en="Relative" jp="平行調">短調&長調</span>
+          <td id="_0" onclick="cordApp.major2minor(this);">
             <span class="lang" en="Major" jp="長調">長調</span>
           <td id="_1" onclick="cordApp.major2minor(this);">
             <span class="lang" en="Minor" jp="短調">短調</span>
@@ -130,25 +130,25 @@
       <table class="cordBtn Minor">
         <caption class="Information dispNone">MinorKey {Harmonic, Melodic}</caption>
         <tr class="Minor Triad">
-          <th class="tth">和声短音階</th>
+          <th class="tth">[平行]和声短音階</th>
           <td id="Am"><td id="Bm-5"><td id="C+5"><td id="Dm">
           <td id="E"><td id="F"><td id="G#m-5">
           <td id="Am"><td id="Bm-5">
         </tr>
         <tr class="Minor Diatonic">
-          <th class="tth">和声短音階</th>
+          <th class="tth">[平行]和声短音階</th>
           <td id="AmM7"><td id="Bm7-5"><td id="CM7+5"><td id="Dm7">
           <td id="E7"><td id="FM7"><td id="G#dim7">
           <td id="AmM7"><td id="Bm7-5">
         </tr>
         <tr class="Minor Triad">
-          <th class="tth">旋律短音階</th>
+          <th class="tth">[平行]旋律短音階</th>
           <td id="Am"><td id="Bm"><td id="C+5"><td id="D">
           <td id="E"><td id="F#m-5"><td id="G#m-5">
           <td id="Am"><td id="Bm">
         </tr>
         <tr class="Minor Diatonic">
-          <th class="tth">旋律短音階</th>
+          <th class="tth">[平行]旋律短音階</th>
           <td id="AmM7"><td id="Bm7"><td id="CM7+5"><td id="D7">
           <td id="E7"><td id="F#m7-5"><td id="G#m7-5">
           <td id="AmM7"><td id="Bm7">
@@ -159,37 +159,37 @@
         <caption class="Information dispNone">
           Parallel-MinorKey {Natural, Harmonic, Melodic}</caption>
         <tr class="Para-Min Triad M-show">
-          <th class="tth">同主自然短音階</th>
+          <th class="tth">[同主]自然短音階</th>
           <td id="Ab" oKey=-3><td id="Bb" oKey=-3>
           <td id="Cm" oKey=-3><td id="Dm-5" oKey=-3><td id="Eb" oKey=-3><td id="Fm" oKey=-3>
           <td id="Gm" oKey=-3><td id="Ab" oKey=-3><td id="Bb" oKey=-3>
         </tr>
         <tr class="Para-Min Diatonic M-show">
-          <th class="tth">同主自然短音階</th>
+          <th class="tth">[同主]自然短音階</th>
           <td id="AbM7" oKey=-3><td id="Bb7" oKey=-3>
           <td id="Cm7" oKey=-3><td id="Dm7-5" oKey=-3><td id="EbM7" oKey=-3><td id="Fm7" oKey=-3>
           <td id="Gm7" oKey=-3><td id="AbM7" oKey=-3><td id="Bb7" oKey=-3>
         </tr>
         <tr class="Para-Min Triad M-show">
-          <th class="tth">同主和声短音階</th>
+          <th class="tth">[同主]和声短音階</th>
           <td id="Ab" oKey=-3><td id="Bm-5" oKey=-3>
           <td id="Cm" oKey=-3><td id="Dm-5" oKey=-3><td id="Eb+5" oKey=-3><td id="Fm" oKey=-3>
           <td id="G" oKey=-3><td id="Ab" oKey=-3><td id="Bm-5" oKey=-3>
         </tr>
         <tr class="Para-Min Diatonic M-show">
-          <th class="tth">同主和声短音階</th>
+          <th class="tth">[同主]和声短音階</th>
           <td id="AbM7" oKey=-3><td id="Bdim7" oKey=-3>
           <td id="CmM7" oKey=-3><td id="Dm7-5" oKey=-3><td id="EbM7+5" oKey=-3><td id="Fm7" oKey=-3>
           <td id="G7" oKey=-3><td id="AbM7" oKey=-3><td id="Bdim7" oKey=-3>
         </tr>
         <tr class="Para-Min Triad M-show">
-          <th class="tth">同主旋律短音階</th>
+          <th class="tth">[同主]旋律短音階</th>
           <td id="Am-5" oKey=-3><td id="Bm-5" oKey=-3>
           <td id="Cm" oKey=-3><td id="Dm" oKey=-3><td id="Eb+5" oKey=-3><td id="F" oKey=-3>
           <td id="G" oKey=-3><td id="Am-5" oKey=-3><td id="Bm-5" oKey=-3>
         </tr>
         <tr class="Para-Min Diatonic M-show">
-          <th class="tth">同主旋律短音階</th>
+          <th class="tth">[同主]旋律短音階</th>
           <td id="Am7-5" oKey=-3><td id="Bm7-5" oKey=-3>
           <td id="CmM7" oKey=-3><td id="Dm7" oKey=-3><td id="EbM7+5" oKey=-3><td id="F7" oKey=-3>
           <td id="G7" oKey=-3><td id="Am7-5" oKey=-3><td id="Bm7-5" oKey=-3> 
@@ -261,12 +261,12 @@
           <td id="D7"><td id="E7"><td id="F#7">
         </tr>
         <tr class="Degree M-show">
-          <th class="tth">度数(長調)</th>
+          <th class="tth">[別名]度数(長調)</th>
           <th>&#8548;/&#8549;<th>&#8548;/&#8550;<th>&#8548;/&#8544;<th>&#8548;/&#8545;<th>&#8548;/&#8546;
           <th>&#8548;/&#8547;<th>&#8548;/&#8548;<th>&#8548;/&#8549;<th>&#8548;/&#8550;
         </tr>
         <tr class="Degree m-show">
-          <th class="tth">度数(短調)</th>
+          <th class="tth">[別名]度数(短調)</th>
           <th>&#8548;/&#8544;<th>&#8548;/&#8545;<th>&#8548;/b&#8546;<th>&#8548;/&#8547;<th>&#8548;/&#8548;
           <th>&#8548;/b&#8549;<th>&#8548;/b&#8550;<th>&#8548;/&#8544;<th>&#8548;/&#8545;
         </tr>
@@ -306,12 +306,12 @@
           <td id="Gb7" oKey=-6><td id="Ab7" oKey=-6><td id="Bb7" oKey=-6><td id="Cb7" oKey=-6>
         </tr>
         <tr class="Degree M-show">
-          <th class="tth">度数(長調)</th>
+          <th class="tth">[別名]度数(長調)</th>
           <th>&#8546;/b&#8548;<th>&#8547;/b&#8548;<th>&#8548;/b&#8548;<th>&#8549;/b&#8548;<th>&#8550;/b&#8548;
           <th>&#8544;/b&#8548;<th>&#8545;/b&#8548;<th>&#8546;/b&#8548;<th>&#8547;/b&#8548;
         </tr>
         <tr class="Degree m-show">
-          <th class="tth">度数(短調)</th>
+          <th class="tth">[別名]度数(短調)</th>
           <th>&#8544;/b&#8548;<th>&#8545;/b&#8548;<th>&#8546;/b&#8548;<th>&#8547;/b&#8548;<th>&#8548;/b&#8548;
           <th>&#8549;/b&#8548;<th>&#8550;/b&#8548;<th>&#8544;/b&#8548;<th>&#8545;/b&#8548;
         </tr>
@@ -345,7 +345,7 @@
           <td id="Em7-5"><td id="F#m7-5"><td id="G#m7-5">
           <td id="A#m7-5">
         </tr>
-        <tr class="Degree M-show">
+        <!--<tr class="Degree M-show">
           <th class="tth">度数(長調)</th>
           <th>#&#8548;°,∅<th>#&#8549;°,∅<th>&#8550;°,∅<th>#&#8544;°,∅<th>#&#8545;°,∅<th>&#8546;°,∅
           <th>#&#8547;°,∅<th>#&#8548;°,∅<th>#&#8549;°,∅
@@ -354,7 +354,7 @@
           <th class="tth">度数(短調)</th>
           <th>&#8550;°,∅<th>#&#8544;°,∅<th>&#8545;°,∅<th>&#8546;°,∅<th>#&#8547;°,∅<th>&#8548;°,∅
           <th>&#8549;°,∅<th>&#8550;°,∅<th>#&#8544;°,∅
-        </tr>
+        </tr>-->
         <tr class="Passing-Diminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾃﾞｨﾐﾆｯｼｭ</th>
           <td id="Bbdim7"><td id="Cdim7"><td id="Dbdim7">
@@ -367,7 +367,7 @@
           <td id="Ebm7-5"><td id="Fm7-5"><td id="Gbm7-5">
           <td id="Abm7-5"><td id="Bbm7-5"><td id="Cm7-5">
         </tr>
-        <tr class="Degree M-show">
+        <!--<tr class="Degree M-show">
           <th class="tth">度数(長調)</th>
           <th>b&#8550;°,∅<th>&#8544;°,∅<th>b&#8545;°,∅<th>b&#8546;°,∅
           <th>&#8547;°,∅<th>b&#8548;°,∅<th>b&#8549;°,∅<th>b&#8550;°,∅<th>&#8544;°,∅
@@ -376,7 +376,7 @@
           <th class="tth">度数(短調)</th>
           <th>b&#8545;°,∅<th>b&#8546;°,∅<th>b&#8547;°,∅<th>b&#8548;°,∅
           <th>b&#8549;°,∅<th>bb&#8550;°,∅<th>b&#8544;°,∅<th>b&#8545;°,∅<th>b&#8546;°,∅
-        </tr>
+        </tr>-->
         <tr class="Major">
           <th class="tth">*</th>
           <td id="Am"><td id="Bm-5">
