@@ -87,7 +87,8 @@
   .cordAppContent .Degree-Change td,
   .cordAppContent .Key-Shift td,
   .cordAppContent .major2minor td,
-  .cordAppContent .triad2dia td{
+  .cordAppContent .triad2dia td,
+  .cordAppContent .viewChange td{
   line-height: 1.2rem;
   }
   .cordAppContent .selected{
@@ -131,6 +132,9 @@
   }
   .Degree th:not(.tth):not(.Kinou th) {
     font-size: 0.8em;
+  }
+  details {
+    background-color: #e1c081;
   }
 
   @media screen and (min-width: 769px) {

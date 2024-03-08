@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css.css?v=1" type="text/css">
+    <link rel="stylesheet" href="css.css?v=2" type="text/css">
     <title>ChordApp</title>
   </head>
   <body>
@@ -33,61 +33,81 @@
           </div>
         </div>
         <div style="height: 0.9em;"></div>
+
+        <details open><summary style="color: rgba(0, 0, 255, 0.692);"><strong><u>表示切替を開く（閉じる）</u></strong></summary>
+          <table id="major2minor" class="major2minor">
+            <tr>
+              <th class="tth">表示切替1</th>
+              <td id="_2" class="selected" onclick="cordApp.major2minor(this);">
+                <span class="lang" en="Relative" jp="平行調">短調&長調</span>
+              <td id="_0" onclick="cordApp.major2minor(this);">
+                <span class="lang" en="Major" jp="長調">長調</span>
+              <td id="_1" onclick="cordApp.major2minor(this);">
+                <span class="lang" en="Minor" jp="短調">短調</span>
+            </tr>
+          </table>
+
+          <table id="degreeChange" class="Degree-Change">
+            <caption class="Information dispNone">Degree-Change</caption>
+            <tr>
+              <th class="tth">表示切替2</th>
+              <td id=0 class="selected" onclick="cordApp.degChange(0);">音名表記
+              <td id=1 onclick="cordApp.degChange(1);">度数(長調表記)
+              <td id=2 onclick="cordApp.degChange(2);">度数(短調表記)
+            </tr>
+          </table>
+
+          <table id="triad2dia" class="triad2dia">
+            <tr>
+              <th class="tth">表示切替3</th>
+              <td id="_triad" class="selected" onclick="cordApp.triad2dia(this);">3音構成
+              <td id="_dia" onclick="cordApp.triad2dia(this);">4音構成
+              <td id="_3&4" onclick="cordApp.triad2dia(this);">3&4音構成
+            </tr>
+          </table>
+
+          <table id="viewChange" class="viewChange">
+            <tr>
+              <th class="tth">表示切替4</th>
+              <td id="Relative-Minor" class="selected" onclick="cordApp.viewChange(this);">平行短調
+              <td id="Parallel-Minor" class="selected" onclick="cordApp.viewChange(this);">同主短調
+              <td id="Parallel-Major" class="selected" onclick="cordApp.viewChange(this);">同主長調
+              <td id="Sus4" class="selected" onclick="cordApp.viewChange(this);">Sus4
+              <td id="Secondary-Dominant" class="selected" onclick="cordApp.viewChange(this);">SD
+              <td id="Passing-Diminish" class="selected" onclick="cordApp.viewChange(this);">PD
+              <td id="Tritone-Substitution" class="selected" onclick="cordApp.viewChange(this);">裏コード
+              <td id="Cliche" class="selected" onclick="cordApp.viewChange(this);">ｸﾘｼｪ
+              <td id="Tention" class="selected" onclick="cordApp.viewChange(this);">ﾃﾝｼｮﾝ
+            </tr>
+          </table>
+          <div class="kaisetsu">・短調の度数表記は、Ⅵm,Ⅶm-5～（長調表記）とⅠm,Ⅱm-5～（短調表記）を使い分ける</div>
+          <div style="height: 0.4em;"></div>
+        </details>
+          
+        <details open><summary style="color: rgba(0, 0, 255, 0.692);"><strong><u>Key-Shiftを開く（閉じる）</u></strong></summary>
+          <table id="keys" class="Key-Shift">
+            <caption class="Information dispNone">Key-Shift</caption>
+            <tr>
+              <th class="tth">Key-Shift</th>
+              <td onclick="cordApp.keyChange(0,6);">[b6]<br/>Gb<br/>Ebm
+              <td onclick="cordApp.keyChange(1,1);">[b5]<br/>Db<br/>Bbm
+              <td onclick="cordApp.keyChange(2,8);">[b4]<br/>Ab<br/>Fm
+              <td onclick="cordApp.keyChange(3,3);">[b3]<br/>Eb<br/>Cm
+              <td onclick="cordApp.keyChange(4,-2);">[b2]<br/>Bb<br/>Gm
+              <td onclick="cordApp.keyChange(5,5);">[b1]<br/>F<br/>Dm
+              <td class="selected" onclick="cordApp.keyChange(6,0);">[&#9838;]<br/>C<br/>Am
+              <td onclick="cordApp.keyChange(7,7);">[#1]<br/>G<br/>Em
+              <td onclick="cordApp.keyChange(8,2);">[#2]<br/>D<br/>Bm
+              <td onclick="cordApp.keyChange(9,-3);">[#3]<br/>A<br/>F#m
+              <td onclick="cordApp.keyChange(10,4);">[#4]<br/>E<br/>C#m
+              <td onclick="cordApp.keyChange(11,-1);">[#5]<br/>B<br/>G#m
+              <td onclick="cordApp.keyChange(12,6);">[#6]<br/>F#<br/>D#m
+            </tr>
+          </table>
+          <div style="height: 0.4em;"></div>
+        </details>
+        <hr>
       </div>
-
-      <table id="major2minor" class="major2minor">
-        <tr>
-          <th class="tth">表示切替1</th>
-          <td id="_2" class="selected" onclick="cordApp.major2minor(this);">
-            <span class="lang" en="Relative" jp="平行調">短調&長調</span>
-          <td id="_0" onclick="cordApp.major2minor(this);">
-            <span class="lang" en="Major" jp="長調">長調</span>
-          <td id="_1" onclick="cordApp.major2minor(this);">
-            <span class="lang" en="Minor" jp="短調">短調</span>
-        </tr>
-      </table>
-
-      <table id="degreeChange" class="Degree-Change">
-        <caption class="Information dispNone">Degree-Change</caption>
-        <tr>
-          <th class="tth">表示切替2</th>
-          <td id=0 class="selected" onclick="cordApp.degChange(0);">音名表記
-          <td id=1 onclick="cordApp.degChange(1);">度数(長調表記)
-          <td id=2 onclick="cordApp.degChange(2);">度数(短調表記)
-        </tr>
-      </table>
-
-      <table id="triad2dia" class="triad2dia">
-        <tr>
-          <th class="tth">表示切替3</th>
-          <td id="_triad" class="selected" onclick="cordApp.triad2dia(this);">3音構成
-          <td id="_dia" onclick="cordApp.triad2dia(this);">4音構成
-          <td id="_3&4" onclick="cordApp.triad2dia(this);">3&4音構成
-        </tr>
-      </table>
-      <div class="kaisetsu">・短調の度数表記は、Ⅵm,Ⅶm-5～（長調表記）とⅠm,Ⅱm-5～（短調表記）を使い分ける</div>
-      <div style="height: 0.9em;"></div>
-      
-      <table id="keys" class="Key-Shift">
-        <caption class="Information dispNone">Key-Shift</caption>
-        <tr>
-          <th class="tth">Key-Shift</th>
-          <td onclick="cordApp.keyChange(0,6);">[b6]<br/>Gb<br/>Ebm
-          <td onclick="cordApp.keyChange(1,1);">[b5]<br/>Db<br/>Bbm
-          <td onclick="cordApp.keyChange(2,8);">[b4]<br/>Ab<br/>Fm
-          <td onclick="cordApp.keyChange(3,3);">[b3]<br/>Eb<br/>Cm
-          <td onclick="cordApp.keyChange(4,-2);">[b2]<br/>Bb<br/>Gm
-          <td onclick="cordApp.keyChange(5,5);">[b1]<br/>F<br/>Dm
-          <td class="selected" onclick="cordApp.keyChange(6,0);">[&#9838;]<br/>C<br/>Am
-          <td onclick="cordApp.keyChange(7,7);">[#1]<br/>G<br/>Em
-          <td onclick="cordApp.keyChange(8,2);">[#2]<br/>D<br/>Bm
-          <td onclick="cordApp.keyChange(9,-3);">[#3]<br/>A<br/>F#m
-          <td onclick="cordApp.keyChange(10,4);">[#4]<br/>E<br/>C#m
-          <td onclick="cordApp.keyChange(11,-1);">[#5]<br/>B<br/>G#m
-          <td onclick="cordApp.keyChange(12,6);">[#6]<br/>F#<br/>D#m
-        </tr>
-      </table>
-      <div style="height: 0.9em;"></div>
     
       <div class="sequence dispNone">
         <!--<input type="button" value="|C |Dm |F |G " onclick="cordApp.sequence(0,'C:Dm:F:G');">-->
@@ -127,7 +147,7 @@
         </tr>
       </table>
       
-      <table class="cordBtn Minor">
+      <table class="cordBtn Minor Relative-Minor">
         <caption class="Information dispNone">MinorKey {Harmonic, Melodic}</caption>
         <tr class="Minor Triad">
           <th class="tth">[平行]和声短音階</th>
@@ -239,7 +259,7 @@
           <th>T<th>S/D<th>T<th>S<th>T/D<th>S<th>D<th>T<th>S/D
         </tr>
       </table>
-      <div class="kaisetsu">・Sus4は同じ必ずルート音のMajorコードに進行する（長調のⅠ度、Ⅴ度以外はSus4にはならない）</div>
+      <div class="kaisetsu Sus4">・Sus4は同じ必ずルート音のMajorコードに進行する（長調のⅠ度、Ⅴ度以外はSus4にはならない）</div>
       <div style="height: 0.9em;"></div>
       
       <table class="cordBtn Secondary-Dominant">
@@ -275,12 +295,12 @@
           <td id="G7"><td id="Am7"><td id="Bm7-5">
         </tr>
       </table>
-      <div class="kaisetsu">
+      <div class="kaisetsu Secondary-Dominant">
         ・セカンダリードミナントは必ず度数の分子のコード（＊）へ進行する<br/>
         ・機能は全てセカンダリードミナント<br/>
         ・度数表記は2種類ある（例：Ⅱ7＝Ⅴ7/Ⅴ）
       </div>
-      <div style="height: 0.9em;"></div>
+      <div class="Secondary-Dominant" style="height: 0.9em;"></div>
       
       <table class="cordBtn Passing-Diminish">
         <caption class="Information dispNone">Passing-Diminish, Passing-HalfDiminish</caption>
@@ -291,13 +311,13 @@
           <td id="Edim7"><td id="F#dim7"><td id="G#dim7" class="bRed">
           <td id="A#dim7">
         </tr>
-        <!--<tr class="Passing-HalfDiminish">
+        <tr class="Passing-HalfDiminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾊｰﾌﾃﾞｨﾐﾆｯｼｭ</th>
-          <td id="G#m7-5"><td id="A#m7-5"><td id="Bm7-5">
+          <td id="G#m7-5" class="bRed"><td id="A#m7-5"><td id="Bm7-5" class="bRed">
           <td id="C#m7-5"><td id="D#m7-5">
-          <td id="Em7-5"><td id="F#m7-5"><td id="G#m7-5">
+          <td id="Em7-5"><td id="F#m7-5" class="bRed"><td id="G#m7-5" class="bRed">
           <td id="A#m7-5">
-        </tr>-->
+        </tr>
         <tr class="Degree">
           <th class="tth">度数(長,短)</th>
           <th>#&#8548;<br>&#8550;<th>#&#8549;<br>#&#8544;<th>&#8550;<br>&#8545;<th>#&#8544;<br>&#8546;
@@ -309,17 +329,25 @@
           <td id="Ebdim7"><td id="Fdim7" class="bRed"><td id="Gbdim7">
           <td id="Abdim7"><td id="Bbdim7"><td id="Cdim7">
         </tr>
-        <!--<tr class="Passing-HalfDiminish">
+        <tr class="Passing-HalfDiminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾊｰﾌﾃﾞｨﾐﾆｯｼｭ</th>
           <td id="Bbm7-5"><td id="Cm7-5"><td id="Dbm7-5">
           <td id="Ebm7-5"><td id="Fm7-5"><td id="Gbm7-5">
           <td id="Abm7-5"><td id="Bbm7-5"><td id="Cm7-5">
-        </tr>-->
+        </tr>
         <tr class="Degree">
           <th class="tth">度数(長,短)</th>
           <th>b&#8550;<br>b&#8545;<th>&#8544;<br>b&#8546;<th>b&#8545;<br>b&#8547;<th>b&#8546;<br>b&#8548;
           <th>&#8547;<br>b&#8549;<th>b&#8548;<br>bb&#8550;<th>b&#8549;<br>b&#8544;<th>b&#8550;<br>b&#8545;<th>&#8544;<br>b&#8546;
         </tr>
+        <!--<tr class="Passing-Diminish">
+          <th class="tth">ﾊﾟｯｼﾝｸﾞﾃﾞｨﾐﾆｯｼｭ</th>
+          <td><td><td><td id="Ddim7" class="bRed"><td><td><td><td><td>
+        </tr>
+        <tr class="Degree">
+          <th class="tth">度数(長,短)</th>
+          <th><th><th><th>Ⅱ<br>Ⅳ<th><th><th><th><th>
+        </tr>-->
         <tr class="Major">
           <th class="tth">*</th>
           <td id="Am"><td id="Bm-5">
@@ -327,28 +355,28 @@
           <td id="G"><td id="Am"><td id="Bm-5">
         </tr>
       </table>
-      <div class="kaisetsu">
+      <div class="kaisetsu Passing-Diminish">
         ・赤枠は和声短音階のダイアトニックコード（長調表記でのⅣdim7は、#Ⅴdim7・Ⅶdim7と構成音が同じ）<br/>
         ・必ず半音上または半音下のダイアトニックコード（＊）に進行する<br/>
         ・機能は概ねドミナントだが、機能感をハッキリさせたくない場合にも使用される
       </div>
-      <div style="height: 0.9em;"></div>
+      <div class="Passing-Diminish" style="height: 0.9em;"></div>
 
       <table class="cordBtn Tritone-Substitution">
         <caption class="Information dispNone">Tritone-Substitution</caption>
-        <tr class="Tritone-Substitution">
+        <tr class="Tritone-Substitution Triad">
           <th class="tth">裏コード</th>
           <td id="Bbm" oKey=-6><td id="Cb" oKey=-6><td id="Db" oKey=-6>
           <td id="Ebm" oKey=-6><td id="Fm-5" oKey=-6><td id="Gb" oKey=-6>
           <td id="Abm" oKey=-6><td id="Bbm" oKey=-6><td id="Cb" oKey=-6>
         </tr>
-        <tr class="Tritone-Substitution">
+        <tr class="Tritone-Substitution Diatonic">
           <th class="tth">裏コード</th>
           <td id="Bbm7" oKey=-6><td id="CbM7" oKey=-6><td id="Db7" oKey=-6>
           <td id="Ebm7" oKey=-6><td id="Fm7-5" oKey=-6><td id="GbM7" oKey=-6>
           <td id="Abm7" oKey=-6><td id="Bbm7" oKey=-6><td id="CbM7" oKey=-6>
         </tr>
-        <tr class="Tritone-Substitution">
+        <tr class="Tritone-Substitution Diatonic">
           <th class="tth">裏コード</th>
           <td><td id="Cb7" oKey=-6><td id="Db7" oKey=-6>
           <td id="Eb7" oKey=-6><td><td id="Gb7" oKey=-6>
@@ -366,11 +394,106 @@
           <td id="G"><td id="Am"><td id="Bm-5">
         </tr>
       </table>
-      <div class="kaisetsu">
+      <div class="kaisetsu Tritone-Substitution">
         ・裏コードは必ず半音下のダイアトニックコード（＊）に進行する<br/>
         ・度数表記は2種類ある（例：bⅡ7＝Ⅴ7/bⅤ）
       </div>
-      <div style="height: 0.9em;"></div>
+      <div class="Tritone-Substitution" style="height: 0.9em;"></div>
+
+      <table class="cordBtn Cliche">
+        <caption class="Information dispNone">Cliche</caption>
+        <tr class="Cliche Triad">
+          <th class="tth">ｸﾘｼｪ(基本形)</th>
+          <td id="Am"><td id="Bm-5">
+          <td id="C"><td id="Dm"><td id="Em"><td id="F">
+          <td id="G"><td id="Am"><td id="Bm-5">
+        </tr>
+        <tr class="Cliche Triad">
+          <th class="tth">ｸﾘｼｪ(drop1)</th>
+          <td id="Am(d1)"><td id="Bm-5(d1)">
+          <td id="C(d1)"><td id="Dm(d1)"><td id="Em(d1)"><td id="F(d1)">
+          <td id="G(d1)"><td id="Am(d1)"><td id="Bm-5(d1)">
+        </tr>
+        <tr class="Cliche Triad">
+          <th class="tth">ｸﾘｼｪ(drop2)</th>
+          <td id="Am(d2)"><td id="Bm-5(d2)">
+          <td id="C(d2)"><td id="Dm(d2)"><td id="Em(d2)"><td id="F(d2)">
+          <td id="G(d2)"><td id="Am(d2)"><td id="Bm-5(d2)">
+        </tr>
+        <tr class="Cliche Diatonic">
+          <th class="tth">ｸﾘｼｪ(基本形)</th>
+          <td id="Am7"><td id="Bm7-5">
+          <td id="CM7"><td id="Dm7"><td id="Em7"><td id="FM7">
+          <td id="G7"><td id="Am7"><td id="Bm7-5">
+        </tr>
+        <tr class="Cliche Diatonic">
+          <th class="tth">ｸﾘｼｪ(drop1)</th>
+          <td id="Am7(d1)"><td id="Bm7-5(d1)">
+          <td id="CM7(d1)"><td id="Dm7(d1)"><td id="Em7(d1)"><td id="FM7(d1)">
+          <td id="G7(d1)"><td id="Am7(d1)"><td id="Bm7-5(d1)">
+        </tr>
+        <tr class="Cliche Diatonic">
+          <th class="tth">ｸﾘｼｪ(drop2)</th>
+          <td id="Am7(d2)"><td id="Bm7-5(d2)">
+          <td id="CM7(d2)"><td id="Dm7(d2)"><td id="Em7(d2)"><td id="FM7(d2)">
+          <td id="G7(d2)"><td id="Am7(d2)"><td id="Bm7-5(d2)">
+        </tr>
+        <tr class="Cliche Diatonic">
+          <th class="tth">ｸﾘｼｪ(drop3)</th>
+          <td id="Am7(d3)"><td id="Bm7-5(d3)">
+          <td id="CM7(d3)"><td id="Dm7(d3)"><td id="Em7(d3)"><td id="FM7(d3)">
+          <td id="G7(d3)"><td id="Am7(d3)"><td id="Bm7-5(d3)">
+        </tr>
+      </table>
+      <div class="kaisetsu Cliche">
+        ・音名表記の場合は、分数表記で分母に音名を記す（drop表記はアプリでの仕様）
+      </div>
+      <div class="Cliche" style="height: 0.9em;"></div>
+
+      <table class="cordBtn Tention">
+        <caption class="Information dispNone">Tention</caption>
+        <tr class="Tention Triad">
+          <th class="tth">add9</th>
+          <td id="Amadd9"><td id="Bm(b5b9)">
+          <td id="Cadd9"><td id="Dmadd9"><td id="Em(b9)"><td id="Fadd9">
+          <td id="Gadd9"><td id="Amadd9"><td id="Bm(b5b9)">
+        </tr>
+        <tr class="Tention Diatonic">
+          <th class="tth">9th</th>
+          <td id="Am9"><td id="Bm7(b5b9)">
+          <td id="CM9"><td id="Dm9"><td id="Em7(b9)"><td id="FM9">
+          <td id="G9"><td id="Am9"><td id="Bm7(b5b9)">
+        </tr>
+        <tr class="Tention Triad">
+          <th class="tth">11th</th>
+          <td id="Am(11)"><td id="Bm-5(11)">
+          <td id="C(11)" class="bgGray"><td id="Dm(11)"><td id="Em(11)"><td id="F(#11)">
+          <td id="G(11)" class="bgGray"><td id="Am(11)"><td id="Bm-5(11)">
+        </tr>
+        <tr class="Tention Diatonic">
+          <th class="tth">7th(11)</th>
+          <td id="Am7(11)"><td id="Bm7-5(11)">
+          <td id="CM7(11)" class="bgGray"><td id="Dm7(11)"><td id="Em7(11)"><td id="FM7(#11)">
+          <td id="G7(11)" class="bgGray"><td id="Am7(11)"><td id="Bm7-5(11)">
+        </tr>
+        <tr class="Tention Triad">
+          <th class="tth">13th</th>
+          <td id="Am(b13)"><td id="Bm(b5b13)">
+          <td id="C(13)"><td id="Dm(13)"><td id="Em(b13)"><td id="F(13)">
+          <td id="G(13)"><td id="Am(b13)"><td id="Bm(b5b13)">
+        </tr>
+        <tr class="Tention Diatonic">
+          <th class="tth">7th(13)</th>
+          <td id="Am7(b13)" class="bgGray"><td id="Bm7(b5b13)">
+          <td id="CM7(13)"><td id="Dm7(13)"><td id="Em7(b13)" class="bgGray"><td id="FM7(13)">
+          <td id="G7(13)"><td id="Am7(b13)" class="bgGray"><td id="Bm7(b5b13)">
+        </tr>
+      </table>
+      <div class="kaisetsu Tention">
+        ・13thは6thと表記されることもある<br/>
+        ・グレーの枠はアボイドノートが存在するコード
+      </div>
+      <div class="Tention" style="height: 0.9em;"></div>
       
       <br/>
       <div id="footer">
@@ -380,5 +503,5 @@
     </div><!--<div class="cordAppContent">-->
 
   </body>
-  <script src="js.js?v=1"></script>
+  <script src="js.js?v=2"></script>
 </html>
