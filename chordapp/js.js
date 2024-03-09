@@ -2,7 +2,8 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 class classCordApp{
   
   constructor(){
-    this.url = "https://dl.dropboxusercontent.com/s/hlhrfp2ffjkb0kj/pianosound.mp3"
+    //this.url = "https://dl.dropboxusercontent.com/s/hlhrfp2ffjkb0kj/pianosound.mp3"
+    this.url = "./pianosound.mp3"
     this.audioCtx = new AudioContext();
     this.gain = this.audioCtx.createGain();
     this.gain.gain.value = 2;
@@ -210,6 +211,18 @@ class classCordApp{
       "m-5":[0,12,12+3,12+6,""],"m7-5":[0,"",12+3,12+6,12+10],"∅":[0,"",12+3,12+6,12+10],
       "dim7":[0,"",12+3,12+6,12+9],"°":[0,"",12+3,12+6,12+9],
       "sus4":[0,12,12+5,12+7,""],"7sus4":[0,"",12+5,12+7,12+10],"M7sus4":[0,"",12+5,12+7,12+11],
+      "add9":[0,"",12+4,12+7,"",12+2],"madd9":[0,"",12+3,12+7,"",12+2],
+      "m(b9)":[0,"",12+3,12+7,"",12+1],"m(b5b9)":[0,"",12+3,12+6,"",12+1],
+      "M9":[0,"",12+4,"",12+11,12+2],"9":[0,"",12+4,"",12+10,12+2],"m9":[0,"",12+3,"",12+10,12+2],
+      "m7(b9)":[0,"",12+3,"",12+10,12+1],"m7(b5b9)":[0,"",12+3,12+6,12+10,12+1],
+      "(11)":[0,"",12+4,12+7,"",12+5],"m(11)":[0,"",12+3,12+7,"",12+5],
+      "(#11)":[0,"",12+4,12+7,"",12+6],"m-5(11)":[0,"",12+3,12+6,"",12+5],
+      "M7(11)":[0,"",12+4,12+7,12+11,12+5],"7(11)":[0,"",12+4,12+7,12+10,12+5],"m7(11)":[0,"",12+3,"",12+10,12+5],
+      "M7(#11)":[0,"",12+4,"",12+11,12+6],"m7-5(11)":[0,"",12+3,12+6,12+10,12+5],
+      "(13)":[0,"",12+4,12+7,"",12+9],"m(13)":[0,"",12+3,12+7,"",12+9],
+      "m(b13)":[0,"",12+3,12+7,"",12+8],"m(b5b13)":[0,"",12+3,12+6,"",12+8],
+      "M7(13)":[0,"",12+4,"",12+11,12+9],"7(13)":[0,"",12+4,"",12+10,12+9],"m7(13)":[0,"",12+3,"",12+10,12+9],
+      "m7(b13)":[0,"",12+3,12+7,12+10,12+8],"m7(b5b13)":[0,"",12+3,12+6,12+10,12+8],
     }
     
     var noteShift = {"Cb":6,"C":7,"C#":8,"Db":8,"D":9,"D#":10,
@@ -223,14 +236,20 @@ class classCordApp{
         returnCode[i] = noteMap[returnCode[i]] + this.keys;
       }
     }else{
-      sym = sym.split("/");
-      if(sym[0].indexOf("#")>-1 || sym[0].indexOf("b")>-1){
+      if(sym.indexOf("/")>-1){
+        sym = sym.split("/");
+      }else{
+        sym = sym.split("(d");
+      }      
+      //if(sym[0].indexOf("#")>-1 || sym[0].indexOf("b")>-1){
+      if(sym[0].slice(1,2) == "#" || sym[0].slice(1,2) == "b"){
         var symSpl = [sym[0].slice(0,2), sym[0].slice(2)];
       }else{
         var symSpl = [sym[0].slice(0,1), sym[0].slice(1)];
       }
       var returnCode = cordManufacture[symSpl[1]];
       if(sym[1]){
+        sym[1] = sym[1].replace(")","");
         if(sym[1]<4){
           if(sym[0].indexOf("7")<0){
             returnCode[0] = "";
@@ -406,6 +425,13 @@ class classCordApp{
       document.querySelectorAll(".Diatonic").forEach(function(x){
         x.classList.remove("dispNone");});
     }
+  }
+
+  viewChange(obj){
+    document.querySelector("#" + obj.id).classList.toggle("selected");
+    document.querySelectorAll("." + obj.id + ":not(tr)").forEach(function(e){
+      e.classList.toggle("dispNone");
+    });
   }
 }//class classCordApp end//
 var cordApp = new classCordApp();
