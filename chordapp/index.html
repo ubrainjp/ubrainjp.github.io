@@ -34,7 +34,7 @@
         </div>
         <div style="height: 0.9em;"></div>
 
-        <details open><summary style="color: rgba(0, 0, 255, 0.692);"><strong><u>表示切替を開く（閉じる）</u></strong></summary>
+        <details open><summary style="color: rgba(0, 0, 255, 0.692);"><strong><u>表示切替・Key-Shiftを開く（閉じる）</u></strong></summary>
           <table id="major2minor" class="major2minor">
             <tr>
               <th class="tth">表示切替1</th>
@@ -80,11 +80,9 @@
               <td id="Tention" class="selected" onclick="cordApp.viewChange(this);">ﾃﾝｼｮﾝ
             </tr>
           </table>
-          <div class="kaisetsu">・短調の度数表記は、Ⅵm,Ⅶm-5～（長調表記）とⅠm,Ⅱm-5～（短調表記）を使い分ける</div>
+          <!--<div class="kaisetsu">・短調の度数表記は、Ⅵm,Ⅶm-5～（長調表記）とⅠm,Ⅱm-5～（短調表記）を使い分ける</div>-->
           <div style="height: 0.4em;"></div>
-        </details>
-          
-        <details open><summary style="color: rgba(0, 0, 255, 0.692);"><strong><u>Key-Shiftを開く（閉じる）</u></strong></summary>
+
           <table id="keys" class="Key-Shift">
             <caption class="Information dispNone">Key-Shift</caption>
             <tr>
@@ -107,45 +105,46 @@
           <div style="height: 0.4em;"></div>
         </details>
         <hr>
-      </div>
-    
-      <div class="sequence dispNone">
-        <!--<input type="button" value="|C |Dm |F |G " onclick="cordApp.sequence(0,'C:Dm:F:G');">-->
-        <button onclick="cordApp.sequence(0,'C:Dm:F:G');">|C |Dm |F |G  </button>
-        <button onclick="cordApp.sequence(1,'C:Dm:F:G:C:Dm:F:G');">|C |Dm |F |G  &#215;2</button>
-        <!--(elm,data)-->
-      </div>
       
-      <table class="cordBtn test dispNone">
-        <tr>
-          <td id="C"><td id="C/1"><td id="C/2"><td id="C/D">
-        </tr>
-        <tr>
-          <td id="C7"><td id="C7/1"><td id="C7/2"><td id="C7/3"><td id="C7/Db">
-        </tr>
-        <tr>
-          <td id="Eb" oKey="-3"><td id="Ab" oKey=-3><td id="C7" sDeg="&#8548;7/&#8547;,aa">
-        </tr>
-      </table>
-    
-      <table class="cordBtn Major">
-        <caption class="Information dispNone">MajorKey, MinorKey(Natural)</caption>
-        <tr class="Major-Degree dispNone">
-          <th>&#8549;<th>&#8550;<th>&#8544;<th>&#8545;<th>&#8546;<th>&#8547;<th>&#8548;<th>&#8549;<th>&#8550;
-        </tr>
-        <tr class="Major Triad">
-          <th class="tth">長調,自然短音階</th>
-          <td id="Am"><td id="Bm-5">
-          <td id="C"><td id="Dm"><td id="Em"><td id="F">
-          <td id="G"><td id="Am"><td id="Bm-5">
-        </tr>
-        <tr class="Major Diatonic">
-          <th class="tth">長調,自然短音階</th>
-          <td id="Am7"><td id="Bm7-5">
-          <td id="CM7"><td id="Dm7"><td id="Em7"><td id="FM7">
-          <td id="G7"><td id="Am7"><td id="Bm7-5">
-        </tr>
-      </table>
+        <div class="sequence dispNone">
+          <!--<input type="button" value="|C |Dm |F |G " onclick="cordApp.sequence(0,'C:Dm:F:G');">-->
+          <button onclick="cordApp.sequence(0,'C:Dm:F:G');">|C |Dm |F |G  </button>
+          <button onclick="cordApp.sequence(1,'C:Dm:F:G:C:Dm:F:G');">|C |Dm |F |G  &#215;2</button>
+          <!--(elm,data)-->
+        </div>
+        
+        <table class="cordBtn test dispNone">
+          <tr>
+            <td id="C"><td id="C/1"><td id="C/2"><td id="C/D">
+          </tr>
+          <tr>
+            <td id="C7"><td id="C7/1"><td id="C7/2"><td id="C7/3"><td id="C7/Db">
+          </tr>
+          <tr>
+            <td id="Eb" oKey="-3"><td id="Ab" oKey=-3><td id="C7" sDeg="&#8548;7/&#8547;,aa">
+          </tr>
+        </table>
+      
+        <table class="cordBtn Major">
+          <caption class="Information dispNone">MajorKey, MinorKey(Natural)</caption>
+          <tr class="Major-Degree dispNone">
+            <th>&#8549;<th>&#8550;<th>&#8544;<th>&#8545;<th>&#8546;<th>&#8547;<th>&#8548;<th>&#8549;<th>&#8550;
+          </tr>
+          <tr class="Major Triad">
+            <th class="tth">長調,自然短音階</th>
+            <td id="Am"><td id="Bm-5">
+            <td id="C"><td id="Dm"><td id="Em"><td id="F">
+            <td id="G"><td id="Am"><td id="Bm-5">
+          </tr>
+          <tr class="Major Diatonic">
+            <th class="tth">長調,自然短音階</th>
+            <td id="Am7"><td id="Bm7-5">
+            <td id="CM7"><td id="Dm7"><td id="Em7"><td id="FM7">
+            <td id="G7"><td id="Am7"><td id="Bm7-5">
+          </tr>
+        </table>
+        <hr>
+      </div>
       
       <table class="cordBtn Minor Relative-Minor">
         <caption class="Information dispNone">MinorKey {Harmonic, Melodic}</caption>
@@ -280,12 +279,12 @@
           <th>&#8548;/&#8548;<br>&#8548;/b&#8550;<th>&#8548;/&#8549;<br>&#8548;/&#8544;<th>&#8548;/&#8550;<br>&#8548;/&#8545;
           <th>&#8548;/&#8544;<br>&#8548;/b&#8546;<th>&#8548;/&#8545;<br>&#8548;/&#8547;<th>&#8548;/&#8546;<br>&#8548;/&#8548;
         </tr>
-        <tr class="Major Triad">
+        <tr class="Major Triad bgGray">
           <th class="tth">*</th>
           <td id="Dm"><td id="Em"><td id="F">
           <td id="G"><td id="Am"><td id="Bm-5"><td id="C"><td id="Dm"><td id="Em">
         </tr>
-        <tr class="Major Diatonic">
+        <tr class="Major Diatonic bgGray">
           <th class="tth">*</th>
           <td id="Dm7"><td id="Em7"><td id="FM7">
           <td id="G7"><td id="Am7"><td id="Bm7-5"><td id="CM7"><td id="Dm7"><td id="Em7">
@@ -302,53 +301,51 @@
         <caption class="Information dispNone">Passing-Diminish, Passing-HalfDiminish</caption>
         <tr class="Passing-Diminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾃﾞｨﾐﾆｯｼｭ</th>
-          <td id="G#dim7" class="bRed"><td id="A#dim7"><td id="Bdim7" class="bRed">
+          <td id="A#dim7"><td id="Bdim7" class="bRed">
           <td id="C#dim7"><td id="D#dim7">
           <td id="Edim7"><td id="F#dim7"><td id="G#dim7" class="bRed">
-          <td id="A#dim7">
+          <td id="A#dim7"><td id="Bdim7" class="bRed">
         </tr>
         <tr class="Passing-HalfDiminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾊｰﾌﾃﾞｨﾐﾆｯｼｭ</th>
-          <td id="G#m7-5" class="bRed"><td id="A#m7-5"><td id="Bm7-5" class="bRed">
+          <td id="A#m7-5"><td id="Bm7-5" class="bRed">
           <td id="C#m7-5"><td id="D#m7-5">
           <td id="Em7-5"><td id="F#m7-5" class="bRed"><td id="G#m7-5" class="bRed">
-          <td id="A#m7-5">
+          <td id="A#m7-5"><td id="Bm7-5" class="bRed">
         </tr>
         <tr class="Degree">
           <th class="tth">度数(長,短)</th>
-          <th>#&#8548;<br>&#8550;<th>#&#8549;<br>#&#8544;<th>&#8550;<br>&#8545;<th>#&#8544;<br>&#8546;
-          <th>#&#8545;<br>#&#8547;<th>&#8546;<br>&#8548;<th>#&#8547;<br>&#8549;<th>#&#8548;<br>&#8550;<th>#&#8549;<br>#&#8544;
+          <th>#&#8549;<br>#&#8544;<th>&#8550;<br>&#8545;<th>#&#8544;<br>&#8546;<th>#&#8545;<br>#&#8547;<th>&#8546;<br>&#8548;
+          <th>#&#8547;<br>&#8549;<th>#&#8548;<br>&#8550;<th>#&#8549;<br>#&#8544;<th>&#8550;<br>&#8545;
         </tr>
+        <tr class="Major bgGray">
+          <th class="tth">*</th>
+          <td id="Bm-5"><td id="C"><td id="Dm"><td id="Em"><td id="F">
+          <td id="G"><td id="Am"><td id="Bm-5"><td id="C">
+        </tr>
+      </table>
+      <table class="cordBtn Passing-Diminish">
         <tr class="Passing-Diminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾃﾞｨﾐﾆｯｼｭ</th>
-          <td id="Bbdim7"><td id="Cdim7"><td id="Dbdim7">
+          <td id="Abdim7"><td id="Bbdim7"><td id="Cdim7"><td id="Dbdim7">
           <td id="Ebdim7"><td id="Fdim7" class="bRed"><td id="Gbdim7">
-          <td id="Abdim7"><td id="Bbdim7"><td id="Cdim7">
+          <td id="Abdim7"><td id="Bbdim7">
         </tr>
         <tr class="Passing-HalfDiminish">
           <th class="tth">ﾊﾟｯｼﾝｸﾞﾊｰﾌﾃﾞｨﾐﾆｯｼｭ</th>
-          <td id="Bbm7-5"><td id="Cm7-5"><td id="Dbm7-5">
+          <td id="Abm7-5"><td id="Bbm7-5"><td id="Cm7-5"><td id="Dbm7-5">
           <td id="Ebm7-5"><td id="Fm7-5"><td id="Gbm7-5">
-          <td id="Abm7-5"><td id="Bbm7-5"><td id="Cm7-5">
+          <td id="Abm7-5"><td id="Bbm7-5">
         </tr>
         <tr class="Degree">
           <th class="tth">度数(長,短)</th>
-          <th>b&#8550;<br>b&#8545;<th>&#8544;<br>b&#8546;<th>b&#8545;<br>b&#8547;<th>b&#8546;<br>b&#8548;
-          <th>&#8547;<br>b&#8549;<th>b&#8548;<br>bb&#8550;<th>b&#8549;<br>b&#8544;<th>b&#8550;<br>b&#8545;<th>&#8544;<br>b&#8546;
+          <th>b&#8549;<br>b&#8544;<th>b&#8550;<br>b&#8545;<th>&#8544;<br>b&#8546;<th>b&#8545;<br>b&#8547;<th>b&#8546;<br>b&#8548;
+          <th>&#8547;<br>b&#8549;<th>b&#8548;<br>bb&#8550;<th>b&#8549;<br>b&#8544;<th>b&#8550;<br>b&#8545;
         </tr>
-        <!--<tr class="Passing-Diminish">
-          <th class="tth">ﾊﾟｯｼﾝｸﾞﾃﾞｨﾐﾆｯｼｭ</th>
-          <td><td><td><td id="Ddim7" class="bRed"><td><td><td><td><td>
-        </tr>
-        <tr class="Degree">
-          <th class="tth">度数(長,短)</th>
-          <th><th><th><th>Ⅱ<br>Ⅳ<th><th><th><th><th>
-        </tr>-->
-        <tr class="Major">
+        <tr class="Major bgGray">
           <th class="tth">*</th>
-          <td id="Am"><td id="Bm-5">
-          <td id="C"><td id="Dm"><td id="Em"><td id="F">
           <td id="G"><td id="Am"><td id="Bm-5">
+          <td id="C"><td id="Dm"><td id="Em"><td id="F"><td id="G"><td id="Am">
         </tr>
       </table>
       <div class="kaisetsu Passing-Diminish">
@@ -362,32 +359,32 @@
         <caption class="Information dispNone">Tritone-Substitution</caption>
         <tr class="Tritone-Substitution Triad">
           <th class="tth">裏コード</th>
-          <td id="Bbm" oKey=-6><td id="Cb" oKey=-6><td id="Db" oKey=-6>
+          <td id="Abm" oKey=-6><td id="Bbm" oKey=-6><td id="Cb" oKey=-6><td id="Db" oKey=-6>
           <td id="Ebm" oKey=-6><td id="Fm-5" oKey=-6><td id="Gb" oKey=-6>
-          <td id="Abm" oKey=-6><td id="Bbm" oKey=-6><td id="Cb" oKey=-6>
+          <td id="Abm" oKey=-6><td id="Bbm" oKey=-6>
         </tr>
         <tr class="Tritone-Substitution Diatonic">
           <th class="tth">裏コード</th>
-          <td id="Bbm7" oKey=-6><td id="CbM7" oKey=-6><td id="Db7" oKey=-6>
+          <td id="Abm7" oKey=-6><td id="Bbm7" oKey=-6><td id="CbM7" oKey=-6><td id="Db7" oKey=-6>
           <td id="Ebm7" oKey=-6><td id="Fm7-5" oKey=-6><td id="GbM7" oKey=-6>
-          <td id="Abm7" oKey=-6><td id="Bbm7" oKey=-6><td id="CbM7" oKey=-6>
+          <td id="Abm7" oKey=-6><td id="Bbm7" oKey=-6>
         </tr>
         <tr class="Tritone-Substitution Diatonic">
           <th class="tth">裏コード</th>
-          <td><td id="Cb7" oKey=-6><td id="Db7" oKey=-6>
+          <td id="Gb7" oKey=-6><td><td id="Cb7" oKey=-6><td id="Db7" oKey=-6>
           <td id="Eb7" oKey=-6><td><td id="Gb7" oKey=-6>
-          <td id="Ab7" oKey=-6><td><td id="Cb7" oKey=-6>
+          <td id="Ab7" oKey=-6><td>
         </tr>
         <tr class="Degree">
           <th class="tth">[別名]度数(長,短)</th>
-          <th>Ⅲ/bⅤ<br>Ⅴ/bⅤ<th>Ⅳ/bⅤ<br>bⅥ/bⅤ<th>Ⅴ/bⅤ<br>bⅦ/bⅤ<th>Ⅵ/bⅤ<br>Ⅰ/bⅤ<th>Ⅶ/bⅤ<br>Ⅱ/bⅤ
-          <th>Ⅰ/bⅤ<br>bⅢ/bⅤ<th>Ⅱ/bⅤ<br>Ⅳ/bⅤ<th>Ⅲ/bⅤ<br>Ⅴ/bⅤ<th>Ⅳ/bⅤ<br>bⅥ/bⅤ
+          <th>Ⅱ/bⅤ<br>Ⅳ/bⅤ<th>Ⅲ/bⅤ<br>Ⅴ/bⅤ<th>Ⅳ/bⅤ<br>bⅥ/bⅤ<th>Ⅴ/bⅤ<br>bⅦ/bⅤ<th>Ⅵ/bⅤ<br>Ⅰ/bⅤ<th>Ⅶ/bⅤ<br>Ⅱ/bⅤ
+          <th>Ⅰ/bⅤ<br>bⅢ/bⅤ<th>Ⅱ/bⅤ<br>Ⅳ/bⅤ<th>Ⅲ/bⅤ<br>Ⅴ/bⅤ
         </tr>
-        <tr class="Major">
+        <tr class="Major bgGray">
           <th class="tth">*</th>
-          <td id="Am"><td id="Bm-5">
-          <td id="C"><td id="Dm"><td id="Em"><td id="F">
           <td id="G"><td id="Am"><td id="Bm-5">
+          <td id="C"><td id="Dm"><td id="Em"><td id="F">
+          <td id="G"><td id="Am">
         </tr>
       </table>
       <div class="kaisetsu Tritone-Substitution">
