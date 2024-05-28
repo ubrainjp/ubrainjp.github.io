@@ -1,1 +1,364 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>純正律・平均律と音色の関係性</title>
+    <style>
+      body { max-width: 800px;}
+      table { width: 100%; position: sticky; top: 5px; background-color: #dde39c; z-index: 10; padding: 5px;}
+      input { width: 100%;}
+      canvas { background-color: lightgrey; width: 100%;}
+      .midashi { background-color: #3F51B5; color: wheat; font-size: 1.5em; padding-left: 0.5em;}
+      .indent { text-indent: -1em; margin-left: 1em;}
+      .imgPlay, .imgStop { position: relative; top: 0.2em;}
+      #footer { width: 100%; text-align: center; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <div class="midashi">
+      純正律・平均律と音色の関係性についての考察
+    </div>
+    <div class="naiyou">
+      <p>年代を問わず純正律への関心の高まりは素晴らしいことですが、昨今はSNSでも純正律信仰とも言えるような誤った情報での啓発が多く気がかりになっています。</p>
+      <p>バロックおよび古典派以降の作品は、平均律による機能和声で作曲されているので、純正律の乱用は横の繋がりを破壊した演奏になりがちです。</p>
+      <p>また、純正律は基音（倍音を含まない）のみの音での理論が一人歩きすることに問題があります。
+        実際の楽器の音や声には複雑な倍音が含まれていますが、音色との関係性を示した資料は多くありません。</p>
+      <p>そこで以下に、倍音を伴った音での純正律と平均律の違いについて、実験と解説を試みてみたいと思います。</p>
+    </div>
 
+    <table>
+      <tr><td>倍音:&nbsp;<span id="modulationDepthValue">0</span></td></tr>
+      <tr><td><input type="range" id="modulationDepth" min="0" max="1000" step="1" value="0"></td></tr>
+      <tr><td>ピッチズレ:&nbsp;<span id="modulationDepthValue2">0</span>cent</td></tr>
+      <tr><td><input type="range" id="modulationDepth2" min="0" max="50" step="1" value="0"></td></tr>
+      <tr><td>純正律(0)-平均律(1):&nbsp;<span id="just2averageValue">1</span></td></tr>
+      <tr><td><input type="range" id="just2average" min="0" max="1" step="0.1" value="1"></td></tr>
+    </table>
+    <!--Modulator Frequency: <input type="range" id="modulatorFrequency" min="1" max="20" step="0.001" value="1.1"><span id="modulatorFrequencyValue">1.1</span><br>-->
+    <canvas id="waveformCanvas" width="800" height="200"></canvas>
+
+    <hr>
+    <div class="midashi">
+      <img class="imgPlay" src="" alt="Play" onclick="playChord('waon')">和音　
+      <img class="imgPlay" src="" alt="Play" onclick="playChord('onlyC')">単音　
+      <img class="imgStop" src="" alt="Stop" onclick="pauseAudio()">停止
+    </div>
+    <div class="naiyou indent">
+      <p>まず、最初に単独和音での検証をしていきます。</p>
+      <p>・倍音が”0”の状態で”和音”を再生してください。この状態で純正律と平均律の和音の響きの差を確認してみましょう。
+      純正律ではウネリが消えますが、平均律でも”濁り”という程の”ウネリではないと思います。</p>
+      <p>・平均律の状態で、倍音を増やしてみてください。200を超えたあたりから”うなり”が発生しだし、
+        500を超えたあたりから”ゆらぎ”と呼べるような響きに変化しだします。実際の弦楽器、管楽器、声に近いのは500を超えたあたりの音ではないでしょうか。</p>
+      <p>・平均律で”ゆらぎ”に感じ取れる倍音を含んだ状態（500を超えたあたり）で、純正律に変更してみてください。
+        ビーっというような音が強く感じられ、必ずしも美しいとは言えなくなってきます。
+        音色によって、適切なハーモニーの取り方が変化することに注目してください。</p>
+      <p>では、”ゆらぎ”とピッチのズレによって生じる”濁り”とは何が違うのでしょうか。</p>
+      <p>・倍音を”0”にした状態で”単音”を再生してください。”ピッチズレ”を少しずつ増やしていくと、周期的に”無音”になることが確認できます。
+        ウネリの振幅が唐突に大きすぎて、とても”ゆらぎ”には感じ取れません。</p>
+      <p>・ピッチがズレた状態で、”倍音を追加”して”和音”を再生してみましょう。とても、和音には聴き取れません。これが”ゆらぎ”と”濁り”の違いです。</p>
+      <p>★つまり、演奏技術を学ぶ上で大切なことは、ウネリが消えるように合わせることではなく、”ゆらぎ”と”濁り”の差を理解することです。
+        また、個々の音色の響かせ方によっても、和音の響きが変化する事に注目しましょう。</p>
+    </div>
+
+    <div class="midashi">
+      <img class="imgPlay" src="" alt="Play" onclick="playChord('amen')">アーメン終止（Ⅰ-Ⅳ-Ⅰ）　
+      <img class="imgStop" src="" alt="Stop" onclick="pauseAudio()">停止
+    </div>
+    <div class="naiyou indent">
+      <p>次に連続和音での検証をしていきます。</p>
+      <p>・中世/ルネサンス期までの代表的な終止形のアーメン終止で、純正律と平均律の違いを聞き比べてみましょう。
+        それぞれに趣があり、どちらが美しいとも言えない響きがあります。</p>
+      <p>・音色（倍音の含ませ方）によっても、響きが変わることも聴き比べてみましょう。</p>
+    </div>
+
+    <div class="midashi">
+      <img class="imgPlay" src="" alt="Play" onclick="playChord('25')">Ⅰ-Ⅱm7-Ⅴ7-Ⅰ　
+      <img class="imgStop" src="" alt="Stop" onclick="pauseAudio()">停止
+    </div>
+    <div class="naiyou indent">
+      <p>・純正律と平均律の違いを聴き比べてみましょう。</p>
+      <P>・倍音を伴った音での純正律では、破綻が生じてしまいます。理由を以下に説明します。</p>
+      <p>・古典派以降の黄金終止形です。”ツーファイブ”とも呼ばれ、モーツァルトから現在のポップスに至るまでの代表的な終止形です。</p>
+      <p>・調律された楽器での純正律では、Ⅰ度/Ⅲ度/Ⅳ度/Ⅴ度/Ⅵ度の3音構成の和音しか使うことができません。</p>
+      <p>・特にⅤ度7は減5度（丁度1オクターブの半分）の距離での音程が含まれており、数学的な音階を作り出すことによって生み出された和音です。
+        この幾何学的な計算によって生じる”うなり”がドミナント（緊張感）の裏付となり、
+        バロック/古典派以降の音楽において機能和声（トニック・サブドミナント・ドミナントの機能に基づく和声）が発展しました。</p>
+      <p>・音色によっては純正律でもそれっぽく聴こえますが、”Ⅴ7-Ⅰでの終止感（解決感）”が乏しくなってしまうことに注目してください。</p>
+      <p>・減5度の音程は”トライトーン（3全音）”とも呼ばれ、中世/ルネサンス期までは”悪魔の音程”として禁忌とされていました。
+        しかし、現在に続く音楽では、この減5度抜きには多彩な躍動感を伴った表現を説明することができません。</p>
+    </div>
+
+    <div class="midashi">
+      <img class="imgPlay" src="" alt="Play" onclick="playChord('canon')">カノン進行（Ⅰ-Ⅴ-Ⅵm-Ⅲm-Ⅳ-Ⅰ-Ⅳ-Ⅴ）　
+      <img class="imgStop" src="" alt="Stop" onclick="pauseAudio()">停止
+    </div>
+    <div class="naiyou indent">
+      <p>・Ⅰ度/Ⅲ度/Ⅳ度/Ⅴ度/Ⅵ度のみを使用した純正律で演奏可能な代表的な進行です。純正律と平均律それぞれに趣があるので、聴き比べてみましょう。</p>
+      <p>・純正律は、倍音を豊富に含んだ音だとマイナーコードが破綻することにお気づき頂けましたか。
+        しかしながら、倍音を抑制した音ではマイナーコードも、とても美しく響きます。（平均律は音色を選びません）</p>
+      <p>・純正律では透明感や癒し効果、平均律では機能感（トニック・サブドミナント・ドミナント）を伴った躍動感が再現されます。</p>
+      <p>・音色（倍音）を変更しながら、純正律と平均律の中間値でも聴いてみましょう。実際の弦楽合奏や管楽合奏では楽隊の音色に合わせて、純正律とも平均律とも言えない中間値で演奏されます。</p>
+      <p>・倍音を抑えて純正律に寄せた方が良い音色、倍音を響かせて平均律に寄せた方が良い音色が存在します。
+        優れた演奏家は、ピッチだけでなく音色もコントロールして、音楽の縦の響きと横の流れを両立させる演奏をしているのです。</p>
+      <p>※＜指導における問題点＞純正律に拘り過ぎるとマイナーコードを綺麗に聴かせるために、生徒は痩せた音色で練習し続けてしまいかねません。</p>
+    </div>
+
+    <div class="midashi">
+      <img class="imgPlay" src="" alt="Play" onclick="playChord('onlyA')">Ⅵm-Ⅶm7-5-Ⅲm7-ⅠM7-Ⅵm7-Ⅱm7-Ⅴ7-Ⅰ　
+      <img class="imgStop" src="" alt="Stop" onclick="pauseAudio()">停止
+    </div>
+    <div class="naiyou indent">
+      <p>・純正律率では禁忌の、Ⅱ度/Ⅶ度および4音構成の和音で構成された進行です。</p>
+      <p>・純正律では和音ごとにウネリがバラバラで横の繋がりが全く意識できません。</p>
+      <p>・クラシックでも普通に使われている長調とも短調とも解釈できる進行で、特段ポップス的ということではありません。</p>
+      <p>・完全に平均律ありきで、平均律の美しさが感じ取れる和声進行の1例です。</p>
+      <p>★平均律が純正律の美しさを破壊したかのような説明も巷には溢れていますが、そうではありません。
+        平均律は17世紀の先人達の偉大な発明であり、音楽の多彩な和声感のみならず音色の豊かさにも大きな影響を与えました。
+        プロの演奏家は感覚的に理解しているのですが、体系的に説明した資料は多くありませんので、ご関心を持っていただければ幸いです。</p>
+      <p>　純正律（実際には純正律に近い音律で演奏されていた）時代の音楽、平均律（実際の演奏には様々なアプローチがある）時代の音楽、それぞれへのリスペクトを持って音楽ライフをお楽しみください。
+      </p>
+    </div>
+
+    <div id="footer">
+      ©u-brain.jp<br/>
+      <a href="mailto:ubrain.jp@gmail.com?subject=ChordApp">ubrain.jp@gmail.com</a>
+    </div>
+
+    <!--<button id="pauseButton">Stop</button>
+    <br>
+    <button onclick="playChord('low')">low</button>
+    <button onclick="playChord('mid')">mid</button>
+    <button onclick="playChord('high')">high</button>
+    <button onclick="playChord('waon')">waon</button>
+    <button onclick="playChord('onlyC')">onlyC</button>
+    <button onclick="playChord('amen')">amen</button>
+    <button onclick="playChord('25')">25</button>
+    <button onclick="playChord('onlyA')">canon</button>
+    <br>-->
+
+    <script>
+        const imgPlay = document.getElementsByClassName("imgPlay");
+        for (let i = 0; i < imgPlay.length; i++) {
+          imgPlay[i].src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDBDMjMuMjgzMiAwIDMwIDYuNzE2ODIgMzAgMTVTMjMuMjgzMiAzMCAxNSAzMFMwIDIzLjI4MzIgMCAxNVM2LjcxNjgyIDAgMTUgMFoiIGZpbGw9IiMwMEZGRjAiLz4KPHBhdGggZD0iTTEwLjUgMjQuMjI0NFY1Ljc3NTU4QzEwLjUgNS4yMTg1NiAxMS4xMTgzIDQuOTEwMDUgMTEuNjAzNSA1LjIzMDY0TDI0LjIyOTkgMTQuNDc1NUMyNC43MTIxIDE0Ljc5NzYgMjQuNzE0NSAxNS4yMDI0IDI0LjIyODkgMTUuNTI0NUwxMS42MDM1IDI0Ljc2OTVDMTEuMTE4MyAyNS4wODkxIDEwLjUgMjQuNzc4NDQgMTAuNSAyNC4yMjQ0WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==";
+        }
+        const imgStop = document.getElementsByClassName("imgStop");
+        for (let i = 0; i < imgStop.length; i++) {
+          imgStop[i].src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDBDMjMuMjgzMiAwIDMwIDYuNzE2ODIgMzAgMTVTMjMuMjgzMiAzMCAxNSAzMFMwIDIzLjI4MzIgMCAxNVM2LjcxNjgyIDAgMTUgMFoiIGZpbGw9IiMwMEZGRjAiLz4KPHJlY3QgeD0iMTEiIHk9IjExIiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K";
+        }
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = 0.0;
+        gainNode.connect(audioContext.destination);
+        //const analyserGain = audioContext.createGain();
+        //analyserGain.gain.value = 0.25;
+        gainNode.connect(analyser);/////
+
+        const lowpassFilter = audioContext.createBiquadFilter();
+        lowpassFilter.type = 'lowpass';
+        lowpassFilter.frequency.value = 20000;
+        lowpassFilter.connect(gainNode);
+        //lowpassFilter.connect(analyserGain);
+
+        let carrier = [];
+        let carrier2 = [];
+        let modulator = [];
+        let modulatorGain = [];
+        let modulator2 = [];
+        let modulatorGain2 = [];
+        for (let i = 0; i < 4; i++) {
+          carrier[i] = audioContext.createOscillator();
+          carrier2[i] = audioContext.createOscillator();
+          modulator[i] = audioContext.createOscillator();
+          modulatorGain[i] = audioContext.createGain();
+          modulator2[i] = audioContext.createOscillator();
+          modulatorGain2[i] = audioContext.createGain();
+
+          carrier[i].type = 'sine';
+          carrier[i].frequency.value = 0;
+          carrier2[i].type = 'sine';
+          carrier2[i].frequency.value = 0;
+
+          modulator[i].type = 'sine';
+          modulator[i].frequency.value = 0;
+          modulatorGain[i].gain.value = 0;
+          modulator2[i].type = 'sine';
+          modulator2[i].frequency.value = 0;
+          modulatorGain2[i].gain.value = 0;
+
+          modulator[i].connect(modulatorGain[i]);
+          modulatorGain[i].connect(carrier[i].frequency);
+          modulator2[i].connect(modulatorGain2[i]);
+          modulatorGain2[i].connect(carrier[i].frequency);
+
+          carrier[i].connect(lowpassFilter);
+          carrier2[i].connect(lowpassFilter);
+          //carrier[i].connect(analyserGain);
+        }
+
+        const chords = {
+          "low":[[48,0,4,7,12,1,1,1,1]],
+          "mid":[[60,0,4,7,12,1,1,1,1]],
+          "high":[[72,0,4,7,12,1,1,1,1]],
+          "waon":[[60,0,4,7,12,0.5,1,1,1]],
+          "onlyC":[[60,0,0,0,0,1,1,1,1]],
+          "amen":[[60,0,4,7,12,0.5,1,1,1],[60,5,5,9,12,0.5,1,1,1],[60,0,4,7,12,0.5,1,1,1]],
+          "25":[[60,0,4,7,12,0.5,1,1,1],[60,2,5,9,12,0.5,1,1,1],[60,7,2,5,11,0.5,1,1,1],[60,0,4,7,12,0.5,1,1,1]],
+          "canon":[[60,0,4,7,12,1,1,1,1],[60,7,2,7,11,0.5,1,1,1],[60,9,4,9,12,0.5,1,1,1],[60,4,4,7,11,0.5,1,1,1],
+          [60,5,5,9,12,0.5,1,1,1],[60,0,4,7,12,0.5,1,1,1],[60,5,5,9,12,0.5,1,1,1],[60,7,2,7,11,0.5,1,1,1]],
+          "onlyA":[[60,9,0,4,9,0.5,1,1,1],[60,11,2,5,9,0.5,1,1,1],[60,4,11,2,7,0.5,0.5,1,1],[60,0,11,4,7,0.5,0.5,1,1],
+          [60,9,0,4,7,0.5,1,1,1],[60,2,0,5,9,0.5,1,1,1],[60,7,2,5,11,0.5,1,1,1],[60,0,4,7,12,0.5,1,1,1]],
+        }
+
+        function updateChord() {
+          let just2average = parseFloat(document.getElementById('just2average').value);
+          document.getElementById('just2averageValue').textContent = just2average;
+          let chord = JSON.parse(JSON.stringify(nowChord[nowNo]));
+          chord[0] = noteNo2hz(chord[0]);
+          //console.log(chord)
+          carrier[0].frequency.value = xhz(chord[0], chord[1], just2average) * chord[5];
+          carrier[1].frequency.value = xhz(chord[0], chord[2], just2average) * chord[6];
+          carrier[2].frequency.value = xhz(chord[0], chord[3], just2average) * chord[7];
+          carrier[3].frequency.value = xhz(chord[0], chord[4], just2average) * chord[8];
+          updateParameters();
+        }
+
+        function updateParameters() {
+          let modulationDepth = parseFloat(document.getElementById('modulationDepth').value);
+          //let modulatorFrequencyRatio = parseFloat(document.getElementById('modulatorFrequency').value);
+          let modulationDepth2 = parseFloat(document.getElementById('modulationDepth2').value);
+          document.getElementById('modulationDepthValue').textContent = modulationDepth;
+          //document.getElementById('modulatorFrequencyValue').textContent = modulatorFrequencyRatio;
+          document.getElementById('modulationDepthValue2').textContent = modulationDepth2;
+          //lowpassFilter.frequency.value = modulationDepth;
+          for (let i = 0; i < 4; i++) {
+            modulator[i].frequency.value = carrier[i].frequency.value
+            modulatorGain[i].gain.value = modulationDepth;
+            carrier2[i].frequency.value = carrier[i].frequency.value * (2 ** (modulationDepth2/1200));
+            modulator2[i].frequency.value = carrier2[i].frequency.value;
+            modulatorGain2[i].gain.value = modulationDepth;
+          }
+        }
+
+        function xhz(root, deg, ja) {
+          const just = [1, , 9/8, 6/5, 5/4, 4/3, , 3/2, 8/5, 5/3, 9/5, 15/8, 2];
+          const justCent = [0, , 4, 16, -14, -2, , 2, 14, -16, 18, -12, 0];
+          if (ja == 0) {
+            var hz = root * just[deg];
+          } else {
+            ja = (1 - ja) * justCent[deg] / 100;
+            var hz = root * (2 ** ((deg + ja) / 12));
+          }
+          return hz;
+        } 
+
+        function noteNo2hz(midiNo) {
+          const no = (midiNo - 69);
+          const hz = 440 * 2 ** (no / 12);
+          return hz;
+        }
+
+        let audioStart = false;
+        function startAudio() {
+          audioStart = true;
+          for (let i = 0; i < 4; i++) {
+            carrier[i].start();
+            carrier2[i].start();
+            modulator[i].start();
+            modulator2[i].start();
+          }
+          drawWaveform();
+        }
+
+        let nowPlaying = false;
+        let nowChord = [];
+        let nowNo = -1;
+        function playChord(_cho) {
+          //if (nowPlaying) { pauseAudio(); }
+          nowPlaying = true;
+          nowChord = JSON.parse(JSON.stringify(chords[_cho]));
+          nowNo = 0;
+          updateChord();
+          if (nowChord.length > 1) {
+            timeId = setTimeout(nextChord, 2000);
+          }
+          if (!audioStart) {
+            startAudio();
+          }
+          //audioContext.resume();
+          const currentTime = audioContext.currentTime;
+          gainNode.gain.setValueAtTime(gainNode.gain.value, currentTime);
+          gainNode.gain.linearRampToValueAtTime(0.1, currentTime + 0.01);
+        }
+
+        let timeId;
+        function nextChord() {
+          nowNo++;
+          updateChord();
+          if (nowChord[nowNo + 1]) {
+            timeId = setTimeout(nextChord, 2000);
+          } else {
+            timeId = setTimeout(pauseAudio, 2000);
+          }
+        }
+
+        function pauseAudio() {
+          const currentTime = audioContext.currentTime;
+          gainNode.gain.setValueAtTime(gainNode.gain.value, currentTime);
+          gainNode.gain.linearRampToValueAtTime(0, currentTime + 0.1);
+          //audioContext.suspend();
+          clearTimeout(timeId);
+          nowPlaying = false;
+          nowChord = [];
+          nowNo = -1;
+        }
+
+        function drawWaveform() {
+            const canvas = document.getElementById('waveformCanvas');
+            const canvasCtx = canvas.getContext('2d');
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const drawVisual = requestAnimationFrame(drawWaveform);
+
+            analyser.getByteTimeDomainData(dataArray);
+
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+            canvasCtx.beginPath();
+
+            const sliceWidth = canvas.width / bufferLength;
+            let x = 0;
+
+            for(let i = 0; i < bufferLength; i++) {
+                const v = dataArray[i] / 128.0;
+                const y = v * canvas.height / 2;
+
+                if(i === 0) {
+                    canvasCtx.moveTo(x, y);
+                } else {
+                    canvasCtx.lineTo(x, y);
+                }
+
+                x += sliceWidth;
+            }
+
+            canvasCtx.lineTo(canvas.width, canvas.height / 2);
+            canvasCtx.stroke();
+        }
+
+        document.getElementById('modulationDepth').addEventListener('input', updateParameters);
+        //document.getElementById('modulatorFrequency').addEventListener('input', updateParameters);
+        document.getElementById('modulationDepth2').addEventListener('input', updateParameters);
+        document.getElementById('just2average').addEventListener('input', updateChord);
+        document.getElementById('pauseButton').addEventListener('click', pauseAudio);
+    </script>
+</body>
+</html>
