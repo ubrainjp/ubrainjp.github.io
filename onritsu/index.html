@@ -37,7 +37,7 @@
       <tr><td><input type="range" id="just2average" min="0" max="1" step="0.1" value="1"></td></tr>
     </table>
     <!--Modulator Frequency: <input type="range" id="modulatorFrequency" min="1" max="20" step="0.001" value="1.1"><span id="modulatorFrequencyValue">1.1</span><br>-->
-    <canvas id="waveformCanvas" width="800" height="200"></canvas>
+    <canvas id="spectrumCanvas" width="800" height="200"></canvas>
 
     <hr>
     <div class="midashi">
@@ -48,18 +48,16 @@
     <div class="naiyou indent">
       <p>まず、最初に単独和音での検証をしていきます。</p>
       <p>・倍音が”0”の状態で”和音”を再生してください。この状態で純正律と平均律の和音の響きの差を確認してみましょう。
-      純正律ではウネリが消えますが、平均律でも”濁り”という程の”ウネリではないと思います。</p>
-      <p>・平均律の状態で、倍音を増やしてみてください。200を超えたあたりから”うなり”が発生しだし、
-        500を超えたあたりから”ゆらぎ”と呼べるような響きに変化しだします。実際の弦楽器、管楽器、声に近いのは500を超えたあたりの音ではないでしょうか。</p>
-      <p>・平均律で”ゆらぎ”に感じ取れる倍音を含んだ状態（500を超えたあたり）で、純正律に変更してみてください。
-        ビーっというような音が強く感じられ、必ずしも美しいとは言えなくなってきます。
-        音色によって、適切なハーモニーの取り方が変化することに注目してください。</p>
-      <p>では、”ゆらぎ”とピッチのズレによって生じる”濁り”とは何が違うのでしょうか。</p>
+      平均律の”うなり”も聴き比べないとわからないのではないでしょうか。ほとんどの人が比較なしに”平均律”を”純正律”と言われれば信じるでしょう。</p>
+      <p>・”平均律”の状態で、倍音を少しずつ増やしていってみてください。音色によって”うなり”方にも変化が現れます。</p>
+      <p>・次に”純正律”の状態で、倍音を少しずつ増やしていってみてください。音色によっては和音に聴こえずらかったり、かえって濁って聴こえます。
+        その点、平均律はどんな音色でも和音に聴こえます。</p>
+      <p>では、”うなり”とピッチのズレによって生じる”濁り”とは何が違うのでしょうか。</p>
       <p>・倍音を”0”にした状態で”単音”を再生してください。”ピッチズレ”を少しずつ増やしていくと、周期的に”無音”になることが確認できます。
-        ウネリの振幅が唐突に大きすぎて、とても”ゆらぎ”には感じ取れません。</p>
-      <p>・ピッチがズレた状態で、”倍音を追加”して”和音”を再生してみましょう。とても、和音には聴き取れません。これが”ゆらぎ”と”濁り”の違いです。</p>
-      <p>★つまり、演奏技術を学ぶ上で大切なことは、ウネリが消えるように合わせることではなく、”ゆらぎ”と”濁り”の差を理解することです。
-        また、個々の音色の響かせ方によっても、和音の響きが変化する事に注目しましょう。</p>
+        これがピッチがズレると音が引っ込んで聴こえる原因です。</p>
+      <p>・ピッチがズレた状態で、”和音”を様々な音色で（倍音を変えながら）再生してみましょう。
+        ピッチのズレ方によっては和音としては破綻してしまいますが、以外にも綺麗に聴こえます。
+        但し、これは単独の和音で聴いているからです。音楽として横の繋がりを持った途端に、やはり不都合が生じてしまいます。</p>
     </div>
 
     <div class="midashi">
@@ -151,23 +149,42 @@
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioContext = new AudioContext();
 
+        /*const waveData = new Float32Array(1024); 
+        for (let i = 0; i < waveData.length; i++) {
+          const phase = (i / waveData.length) * Math.PI * 2; 
+          waveData[i] = Math.sin(phase);
+        }
+        const waveTable = audioContext.createPeriodicWave(waveData, waveData);*/
+
         const analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
+        analyser.fftSize = 4096;
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
 
         const gainNode = audioContext.createGain();
         gainNode.gain.value = 0.0;
-        gainNode.connect(audioContext.destination);
-        //const analyserGain = audioContext.createGain();
-        //analyserGain.gain.value = 0.25;
-        gainNode.connect(analyser);/////
+        const gainNode2 = audioContext.createGain();
+        gainNode2.gain.value = 0.0;
+
+        const gainNodeCarrier1_1 = audioContext.createGain();
+        gainNodeCarrier1_1.gain.value = 0.0;
+        const gainNodeCarrier1_2 = audioContext.createGain();
+        gainNodeCarrier1_2.gain.value = 0.0;
+        const gainNodeCarrier2 = audioContext.createGain();
+        gainNodeCarrier2.gain.value = 0.0;
 
         const lowpassFilter = audioContext.createBiquadFilter();
-        lowpassFilter.type = 'lowpass';
-        lowpassFilter.frequency.value = 20000;
+        lowpassFilter.type = 'highpass';
+        lowpassFilter.frequency.value = 100;
         lowpassFilter.connect(gainNode);
         //lowpassFilter.connect(analyserGain);
+
+        gainNodeCarrier1_1.connect(lowpassFilter);
+        gainNodeCarrier1_2.connect(lowpassFilter);
+        gainNodeCarrier2.connect(lowpassFilter);
+        gainNode.connect(gainNode2);
+        gainNode2.connect(audioContext.destination);
+        gainNode2.connect(analyser);
 
         let carrier = [];
         let carrier2 = [];
@@ -175,34 +192,47 @@
         let modulatorGain = [];
         let modulator2 = [];
         let modulatorGain2 = [];
-        for (let i = 0; i < 4; i++) {
-          carrier[i] = audioContext.createOscillator();
-          carrier2[i] = audioContext.createOscillator();
-          modulator[i] = audioContext.createOscillator();
-          modulatorGain[i] = audioContext.createGain();
-          modulator2[i] = audioContext.createOscillator();
-          modulatorGain2[i] = audioContext.createGain();
 
-          carrier[i].type = 'sine';
-          carrier[i].frequency.value = 0;
-          carrier2[i].type = 'sine';
-          carrier2[i].frequency.value = 0;
+        function createOscs() {
+          for (let i = 0; i < 4; i++) {
+            carrier[i] = audioContext.createOscillator();
+            carrier2[i] = audioContext.createOscillator();
+            modulator[i] = audioContext.createOscillator();
+            modulatorGain[i] = audioContext.createGain();
+            modulator2[i] = audioContext.createOscillator();
+            modulatorGain2[i] = audioContext.createGain();
 
-          modulator[i].type = 'sine';
-          modulator[i].frequency.value = 0;
-          modulatorGain[i].gain.value = 0;
-          modulator2[i].type = 'sine';
-          modulator2[i].frequency.value = 0;
-          modulatorGain2[i].gain.value = 0;
+            carrier[i].type = 'sine'; //.setPeriodicWave(waveTable);
+            carrier[i].frequency.value = 0;
+            carrier2[i].type = 'sine';
+            carrier2[i].frequency.value = 0;
 
-          modulator[i].connect(modulatorGain[i]);
-          modulatorGain[i].connect(carrier[i].frequency);
-          modulator2[i].connect(modulatorGain2[i]);
-          modulatorGain2[i].connect(carrier[i].frequency);
+            modulator[i].type = 'sine';
+            modulator[i].frequency.value = 0;
+            modulatorGain[i].gain.value = 0;
+            modulator2[i].type = 'sine';
+            modulator2[i].frequency.value = 0;
+            modulatorGain2[i].gain.value = 0;
 
-          carrier[i].connect(lowpassFilter);
-          carrier2[i].connect(lowpassFilter);
-          //carrier[i].connect(analyserGain);
+            modulator[i].connect(modulatorGain[i]);
+            modulatorGain[i].connect(carrier[i].frequency);
+            modulator2[i].connect(modulatorGain2[i]);
+            modulatorGain2[i].connect(carrier2[i].frequency);
+
+            if (i == 0) {
+              carrier[i].connect(gainNodeCarrier1_1);
+            } else {
+              carrier[i].connect(gainNodeCarrier1_2);
+            }
+            carrier2[i].connect(gainNodeCarrier2);
+            //carrier[i].connect(analyserGain);
+
+            const currentTime = audioContext.currentTime;
+            carrier[i].start(currentTime);
+            carrier2[i].start(currentTime);
+            modulator[i].start(currentTime);
+            modulator2[i].start(currentTime);
+          }
         }
 
         const chords = {
@@ -220,32 +250,71 @@
         }
 
         function updateChord() {
+          let modulationDepth = parseFloat(document.getElementById('modulationDepth').value);
           let just2average = parseFloat(document.getElementById('just2average').value);
+          let modulationDepth2 = parseFloat(document.getElementById('modulationDepth2').value);
+          document.getElementById('modulationDepthValue').textContent = modulationDepth;
+          document.getElementById('modulationDepthValue2').textContent = modulationDepth2;
           document.getElementById('just2averageValue').textContent = just2average;
+
           let chord = JSON.parse(JSON.stringify(nowChord[nowNo]));
           chord[0] = noteNo2hz(chord[0]);
           //console.log(chord)
-          carrier[0].frequency.value = xhz(chord[0], chord[1], just2average) * chord[5];
-          carrier[1].frequency.value = xhz(chord[0], chord[2], just2average) * chord[6];
-          carrier[2].frequency.value = xhz(chord[0], chord[3], just2average) * chord[7];
-          carrier[3].frequency.value = xhz(chord[0], chord[4], just2average) * chord[8];
-          updateParameters();
-        }
+          const currentTime = audioContext.currentTime;
+          let chordx = [
+            xhz(chord[0], chord[1], just2average) * chord[5], 
+            xhz(chord[0], chord[2], just2average) * chord[6],
+            xhz(chord[0], chord[3], just2average) * chord[7], 
+            xhz(chord[0], chord[4], just2average) * chord[8]
+          ];
+          carrier[0].frequency.setValueAtTime(chordx[0], currentTime);
+          carrier[1].frequency.setValueAtTime(chordx[1], currentTime);
+          carrier[2].frequency.setValueAtTime(chordx[2], currentTime);
+          carrier[3].frequency.setValueAtTime(chordx[3], currentTime);
+          //carrier[0].frequency.value = chordx[0];
+          //carrier[1].frequency.value = chordx[1];
+          //carrier[2].frequency.value = chordx[2];
+          //carrier[3].frequency.value = chordx[3];
+          if (chord[1] == chord[2] && chord[5] == chord[6]) {
+            gainNodeCarrier1_1.gain.setValueAtTime(gainNodeCarrier1_1.gain.value, currentTime);
+            gainNodeCarrier1_1.gain.linearRampToValueAtTime(1, currentTime + 0.05);
+            gainNodeCarrier1_2.gain.setValueAtTime(gainNodeCarrier1_2.gain.value, currentTime);
+            gainNodeCarrier1_2.gain.linearRampToValueAtTime(0, currentTime + 0.05);
+          } else {
+            gainNodeCarrier1_1.gain.setValueAtTime(gainNodeCarrier1_1.gain.value, currentTime);
+            gainNodeCarrier1_1.gain.linearRampToValueAtTime(1, currentTime + 0.05);
+            gainNodeCarrier1_2.gain.setValueAtTime(gainNodeCarrier1_2.gain.value, currentTime);
+            gainNodeCarrier1_2.gain.linearRampToValueAtTime(1, currentTime + 0.05);
+          }
 
-        function updateParameters() {
-          let modulationDepth = parseFloat(document.getElementById('modulationDepth').value);
-          //let modulatorFrequencyRatio = parseFloat(document.getElementById('modulatorFrequency').value);
-          let modulationDepth2 = parseFloat(document.getElementById('modulationDepth2').value);
-          document.getElementById('modulationDepthValue').textContent = modulationDepth;
-          //document.getElementById('modulatorFrequencyValue').textContent = modulatorFrequencyRatio;
-          document.getElementById('modulationDepthValue2').textContent = modulationDepth2;
-          //lowpassFilter.frequency.value = modulationDepth;
           for (let i = 0; i < 4; i++) {
-            modulator[i].frequency.value = carrier[i].frequency.value
-            modulatorGain[i].gain.value = modulationDepth;
-            carrier2[i].frequency.value = carrier[i].frequency.value * (2 ** (modulationDepth2/1200));
-            modulator2[i].frequency.value = carrier2[i].frequency.value;
-            modulatorGain2[i].gain.value = modulationDepth;
+            modulator[i].frequency.setValueAtTime(chordx[i], currentTime);
+            modulatorGain[i].gain.setValueAtTime(modulationDepth, currentTime);
+            //modulator[i].frequency.value = chordx[i];
+            //modulatorGain[i].gain.value = modulationDepth;
+            if (modulationDepth2 == 0) {
+              gainNode2.gain.setValueAtTime(gainNode2.gain.value, currentTime);
+              gainNode2.gain.linearRampToValueAtTime(2, currentTime + 0.05);
+              gainNodeCarrier2.gain.setValueAtTime(gainNodeCarrier2.gain.value, currentTime);
+              gainNodeCarrier2.gain.linearRampToValueAtTime(0, currentTime + 0.05);
+            } else {
+              gainNode2.gain.setValueAtTime(gainNode2.gain.value, currentTime);
+              gainNode2.gain.linearRampToValueAtTime(1, currentTime + 0.05);
+              if (chord[1] == chord[2] && chord[5] == chord[6]) {
+                gainNodeCarrier2.gain.setValueAtTime(gainNodeCarrier2.gain.value, currentTime);
+                gainNodeCarrier2.gain.linearRampToValueAtTime(0.25, currentTime + 0.05);
+              } else {
+                gainNodeCarrier2.gain.setValueAtTime(gainNodeCarrier2.gain.value, currentTime);
+                gainNodeCarrier2.gain.linearRampToValueAtTime(1, currentTime + 0.05);
+              }
+            }
+            let carrier2Freq = chordx[i] * (2 ** (modulationDepth2/1200))
+            carrier2[i].frequency.setValueAtTime(carrier2Freq, currentTime);
+            modulator2[i].frequency.setValueAtTime(carrier2Freq, currentTime);
+            modulatorGain2[i].gain.setValueAtTime(modulationDepth, currentTime);
+            //carrier2[i].frequency.value = carrier2Freq;
+            //modulator2[i].frequency.value = carrier2Freq;
+            //modulatorGain2[i].gain.value = modulationDepth;
           }
         }
 
@@ -258,6 +327,7 @@
             ja = (1 - ja) * justCent[deg] / 100;
             var hz = root * (2 ** ((deg + ja) / 12));
           }
+          //console.log(hz);
           return hz;
         } 
 
@@ -267,32 +337,21 @@
           return hz;
         }
 
-        let audioStart = false;
-        function startAudio() {
-          audioStart = true;
-          for (let i = 0; i < 4; i++) {
-            carrier[i].start();
-            carrier2[i].start();
-            modulator[i].start();
-            modulator2[i].start();
-          }
-          drawWaveform();
-        }
-
         let nowPlaying = false;
         let nowChord = [];
         let nowNo = -1;
         function playChord(_cho) {
-          //if (nowPlaying) { pauseAudio(); }
+          if (nowPlaying) { 
+            pauseAudio(_cho);
+            return false;
+          }
+          createOscs();
           nowPlaying = true;
           nowChord = JSON.parse(JSON.stringify(chords[_cho]));
           nowNo = 0;
           updateChord();
           if (nowChord.length > 1) {
             timeId = setTimeout(nextChord, 2000);
-          }
-          if (!audioStart) {
-            startAudio();
           }
           //audioContext.resume();
           const currentTime = audioContext.currentTime;
@@ -311,55 +370,89 @@
           }
         }
 
-        function pauseAudio() {
+        function pauseAudio(_cho) {
           const currentTime = audioContext.currentTime;
           gainNode.gain.setValueAtTime(gainNode.gain.value, currentTime);
           gainNode.gain.linearRampToValueAtTime(0, currentTime + 0.1);
+          gainNodeCarrier1_1.gain.setValueAtTime(gainNodeCarrier1_1.gain.value, currentTime);
+          gainNodeCarrier1_1.gain.linearRampToValueAtTime(0, currentTime + 0.1);
+          gainNodeCarrier1_2.gain.setValueAtTime(gainNodeCarrier1_2.gain.value, currentTime);
+          gainNodeCarrier1_2.gain.linearRampToValueAtTime(0, currentTime + 0.1);
+          gainNodeCarrier2.gain.setValueAtTime(gainNodeCarrier2.gain.value, currentTime);
+          gainNodeCarrier2.gain.linearRampToValueAtTime(0, currentTime + 0.1);
           //audioContext.suspend();
           clearTimeout(timeId);
           nowPlaying = false;
           nowChord = [];
           nowNo = -1;
+          for (let i = 0; i < 4; i++) {
+            carrier[i].stop(currentTime + 0.11);
+            carrier2[i].stop(currentTime + 0.11);
+            modulator[i].stop(currentTime + 0.11);
+            modulator2[i].stop(currentTime + 0.11);
+          }
+          carrier = [];
+          carrier2 = [];
+          modulator = [];
+          modulatorGain = [];
+          modulator2 = [];
+          modulatorGain2 = [];
+          if (_cho) { setTimeout(playChord, 150, _cho); }
         }
 
-        function drawWaveform() {
-            const canvas = document.getElementById('waveformCanvas');
+        function getFrequency(index, sampleRate, fftSize) {
+            return index * (sampleRate / fftSize);
+        }
+        function logScale(index, sampleRate, fftSize) {
+            const frequency = getFrequency(index, sampleRate, fftSize);
+            const minFrequency = 20;
+            const maxFrequency = 20000;
+            const minLog = Math.log10(minFrequency);
+            const maxLog = Math.log10(maxFrequency);
+            const logFreq = Math.log10(frequency);
+            return (logFreq - minLog) / (maxLog - minLog);
+        }
+        function drawSpectrum() {
+            const canvas = document.getElementById('spectrumCanvas');
             const canvasCtx = canvas.getContext('2d');
+
+            requestAnimationFrame(drawSpectrum);
+
+            analyser.getByteFrequencyData(dataArray);
+
             canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const drawVisual = requestAnimationFrame(drawWaveform);
+            const minFrequency = 20;
+            const maxFrequency = 20000;
+            const minLog = Math.log10(minFrequency);
+            const maxLog = Math.log10(maxFrequency);
+            const barWidth = 2;
 
-            analyser.getByteTimeDomainData(dataArray);
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i];
+                const logPosition = logScale(i, audioContext.sampleRate, analyser.fftSize);
+                const x = logPosition * canvas.width;
 
-            canvasCtx.lineWidth = 2;
-            canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-            canvasCtx.beginPath();
-
-            const sliceWidth = canvas.width / bufferLength;
-            let x = 0;
-
-            for(let i = 0; i < bufferLength; i++) {
-                const v = dataArray[i] / 128.0;
-                const y = v * canvas.height / 2;
-
-                if(i === 0) {
-                    canvasCtx.moveTo(x, y);
-                } else {
-                    canvasCtx.lineTo(x, y);
-                }
-
-                x += sliceWidth;
+                canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
+                canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
             }
 
-            canvasCtx.lineTo(canvas.width, canvas.height / 2);
-            canvasCtx.stroke();
+            const labelFrequencies = [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+            canvasCtx.fillStyle = 'white';
+            canvasCtx.textAlign = 'center';
+            for (const freq of labelFrequencies) {
+                const logFreq = Math.log10(freq);
+                const logPosition = (logFreq - minLog) / (maxLog - minLog);
+                const x = logPosition * canvas.width;
+                canvasCtx.fillText(freq + ' Hz', x, canvas.height - 10);
+            }
         }
+        drawSpectrum();
 
-        document.getElementById('modulationDepth').addEventListener('input', updateParameters);
-        //document.getElementById('modulatorFrequency').addEventListener('input', updateParameters);
-        document.getElementById('modulationDepth2').addEventListener('input', updateParameters);
+        document.getElementById('modulationDepth').addEventListener('input', updateChord);
+        document.getElementById('modulationDepth2').addEventListener('input', updateChord);
         document.getElementById('just2average').addEventListener('input', updateChord);
-        document.getElementById('pauseButton').addEventListener('click', pauseAudio);
+        //document.getElementById('pauseButton').addEventListener('click', pauseAudio);
     </script>
 </body>
 </html>
