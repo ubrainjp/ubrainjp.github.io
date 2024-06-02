@@ -37,7 +37,7 @@
     <div id="kotei">
       <table>
         <tr><td>倍音:&nbsp;<span id="modulationDepthValue">0</span></td></tr>
-        <tr><td><input type="range" id="modulationDepth" min="0" max="1000" step="1" value="0"></td></tr>
+        <tr><td><input type="range" id="modulationDepth" min="0" max="1000" step="10" value="0"></td></tr>
         <tr><td>ピッチズレ:&nbsp;<span id="modulationDepthValue2">0</span>cent</td></tr>
         <tr><td><input type="range" id="modulationDepth2" min="0" max="50" step="1" value="0"></td></tr>
         <tr><td>純正律(0)-平均律(1):&nbsp;<span id="just2averageValue">1</span></td></tr>
@@ -47,7 +47,8 @@
       <canvas id="spectrumCanvas" width="800" height="200"></canvas>
     </div>
     <p><b><u>※連続的に波形を変化させているため、位相差によるノイズが発生する場合があります。
-      大音量での再生には注意をお願いいたします。再度、倍音（音色）を変更したり、再生しなおすと解消します。</u></b></p>
+      大音量での再生には注意をお願いいたします。</u></b>再度、倍音（音色）を変更したり、再生しなおすと解消します。</p>
+    <p>・スピーカーやイヤホンによっては共振音が発生する場合があります。</p>
     <hr>
    
     <div class="midashi">
@@ -117,7 +118,7 @@
       <p>・クラシックでも普通に使われている進行で、特段ポップス的ということではありません。</p>
       <p>・平均律の美しさが感じ取れる和声進行の1例です。平均律の響きを純正律として紹介されたら、疑わない人も多いと思います。
         純正律と思っていたアカペラの響きも、実は平均律であることが多いです。</p>
-      <p>・実はこのフレーズは、倍音を絞った音色（100前後）に限り純正律でも綺麗に聴こえます。但し、ここでも音色に制約が生じることに注目してください。</p>
+      <p>・実はこのフレーズは、倍音を絞った音色（10前後）に限り純正律でも綺麗に聴こえます。但し、ここでも音色に制約が生じることに注目してください。</p>
       <p>・これが純正律と平均律のどちらで演奏するかで大論争に発展する要因とも考えます。
         私は機能感を無視した純正律での演奏には否定的ですが、純正律が好みという方が多いことも理解はできます。
         そこには、実は音色の関係性を無視しては語れない背景が置き去りにされています。</p>
@@ -269,7 +270,7 @@
           let modulationDepth = parseFloat(document.getElementById('modulationDepth').value);
           let just2average = parseFloat(document.getElementById('just2average').value);
           let modulationDepth2 = parseFloat(document.getElementById('modulationDepth2').value);
-          document.getElementById('modulationDepthValue').textContent = modulationDepth;
+          document.getElementById('modulationDepthValue').textContent = modulationDepth / 10;
           document.getElementById('modulationDepthValue2').textContent = modulationDepth2;
           document.getElementById('just2averageValue').textContent = just2average;
 
