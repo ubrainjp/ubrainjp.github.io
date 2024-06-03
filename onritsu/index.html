@@ -25,11 +25,9 @@
       <p>年代を問わず純正律への関心の高まりは素晴らしいことですが、昨今はSNSでも純正律信仰とも言えるような誤った情報での啓発が多く気がかりになっています。</p>
       <p>バロックおよび古典派以降の作品は、平均律による機能和声で作曲されているので、純正律の乱用は横の繋がりを破壊した演奏になりがちです。</p>
       <p>純正律は基音（倍音を含まない）のみの音での理論が一人歩きすることに問題があります。
-        実際の楽器の音や声には複雑な倍音が含まれており、特にプロのフォルテで響かせた音色の場合には倍音同士の干渉により、必ずしも純正律が有効には働きません。</p>
-      <p>この理解の不足が、一部の教育現場などでは純正律を追求するあまり、個々の響きがないがしろの演奏になっている温床と考えます。</p>
+        実際の楽器の音や声には複雑な倍音が含まれており、特にフォルテで響かせた音色の場合には倍音同士の干渉により、必ずしも純正律が有効には働きません。</p>
       <p>このような話をすると、今度は逆に”音程合わせ不要論”飛躍する論調も現れますが、そうではありません。
         むしろ、平均律の響きの方が”うなり”の有無だけでは捉えられないので、より繊細な耳を養う必要があります。</p>
-      <p>しばしば、純正律派と平均律派で対立のような論争に発展します。その背景にも、音色（響き）の無理解が関係していると思われます。</p>
       <p>まだ、音色との関係を扱った資料は多くないので、シンセサイザーで倍音の構成を変更できる実験装置を用いて、実験と解説を試みてみたいと思います。
       また、機能和声についての簡単な解説も合わせて行います。</p>
     </div>
@@ -287,10 +285,10 @@
             xhz(chord[0], chord[3], just2average) * chord[7], 
             xhz(chord[0], chord[4], just2average) * chord[8]
           ];
-          carrier[0].frequency.setValueAtTime(chordx[0], currentTime);
-          carrier[1].frequency.setValueAtTime(chordx[1], currentTime);
-          carrier[2].frequency.setValueAtTime(chordx[2], currentTime);
-          carrier[3].frequency.setValueAtTime(chordx[3], currentTime);
+          carrier[0].frequency.setValueAtTime(chordx[0], currentTime + 0.001);
+          carrier[1].frequency.setValueAtTime(chordx[1], currentTime + 0.002);
+          carrier[2].frequency.setValueAtTime(chordx[2], currentTime + 0.003);
+          carrier[3].frequency.setValueAtTime(chordx[3], currentTime + 0.004);
           //carrier[0].frequency.value = chordx[0];
           //carrier[1].frequency.value = chordx[1];
           //carrier[2].frequency.value = chordx[2];
