@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自動保存メモ帳</title>
+    <style>
+        /* 画面全体にテキストエリアを広げるためのスタイル */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        textarea {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.6;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <textarea id="notepad" placeholder="ここに文字を入力してください。自動的に保存されます..."></textarea>
+
+    <script>
+        const textarea = document.getElementById('notepad');
+        const STORAGE_KEY = 'notepad_content';
+
+        // 1. ページ読み込み時にローカルストレージからデータを復元
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedContent = localStorage.getItem(STORAGE_KEY);
+            if (savedContent !== null) {
+                textarea.value = savedContent;
+            }
+        });
+
+        // 2. テキストエリアの内容が更新されるたびにローカルストレージへ保存
+        textarea.addEventListener('input', () => {
+            localStorage.setItem(STORAGE_KEY, textarea.value);
+        });
+    </script>
+
+</body>
+</html>
