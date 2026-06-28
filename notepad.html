@@ -16,49 +16,99 @@
             background-color: #f9f9f9;
         }
 
-        /* タブバーのスタイル */
-        .tab-bar {
-            display: flex;
+        /* 【修正】Gridレイアウトに変更し、右側のボタンエリアを「絶対に」画面内に固定する */
+        .header-bar {
+            display: grid;
+            grid-template-columns: 1fr auto; 
             background-color: #eaeaea;
             border-bottom: 1px solid #ccc;
-            overflow-x: auto; /* 画面が狭いときは横スクロール可能に */
-            white-space: nowrap;
+            height: 45px;
+            box-sizing: border-box;
+            width: 100%;
         }
 
-        /* 各タブボタンのスタイル */
+        /* タブのコンテナ（幅0指定を中継することで、この中だけで綺麗に横スクロールさせる） */
+        .tab-wrapper {
+            min-width: 0;
+            height: 100%;
+        }
+
+        .tab-container {
+            display: flex;
+            height: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none; /* Firefox用スクロールバー非表示 */
+        }
+        .tab-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari用スクロールバー非表示 */
+        }
+
+        /* 各タブボタン */
         .tab-button {
-            flex: 1;
-            min-width: 70px;
-            padding: 12px 5px;
+            padding: 0 16px;
+            height: 100%;
             border: none;
             background-color: #eaeaea;
             cursor: pointer;
-            font-size: 14px;
-            text-align: center;
+            font-size: 13px;
             color: #555;
             border-right: 1px solid #ccc;
-            transition: background-color 0.15s;
-        }
-
-        .tab-button:last-child {
-            border-right: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .tab-button:hover {
             background-color: #dfdfdf;
         }
 
-        /* アクティブ（現在選択中）なタブのスタイル */
         .tab-button.active {
             background-color: #ffffff;
             color: #000;
             font-weight: bold;
-            border-bottom: 3px solid #0076ff; /* 青い下線 */
+            box-shadow: inset 0 -3px 0 #0076ff;
+        }
+
+        /* ボタンのコンテナ（右端に確実に存在させ、前面に固定） */
+        .action-container {
+            display: flex;
+            gap: 6px;
+            padding: 0 10px;
+            height: 100%;
+            align-items: center;
+            background-color: #eaeaea;
+            border-left: 1px solid #ccc;
+        }
+
+        /* ボタンのスタイル */
+        .icon-button {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #333;
+            font-size: 12px;
+            height: 30px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            transition: background-color 0.15s;
+        }
+
+        .icon-button:hover {
+            background-color: #f0f0f0;
+            border-color: #adadad;
         }
 
         /* テキストエリアのコンテナ */
         .textarea-container {
             flex: 1;
+            min-height: 0;
         }
 
         textarea {
@@ -77,17 +127,43 @@
 </head>
 <body>
 
-    <div class="tab-bar">
-        <button class="tab-button" data-tab="1">メモ 1</button>
-        <button class="tab-button" data-tab="2">メモ 2</button>
-        <button class="tab-button" data-tab="3">メモ 3</button>
-        <button class="tab-button" data-tab="4">メモ 4</button>
-        <button class="tab-button" data-tab="5">メモ 5</button>
-        <button class="tab-button" data-tab="6">メモ 6</button>
-        <button class="tab-button" data-tab="7">メモ 7</button>
-        <button class="tab-button" data-tab="8">メモ 8</button>
-        <button class="tab-button" data-tab="9">メモ 9</button>
-        <button class="tab-button" data-tab="10">メモ 10</button>
+    <div class="header-bar">
+        <div class="tab-wrapper">
+            <div class="tab-container">
+                <button class="tab-button" data-tab="1">メモ 1</button>
+                <button class="tab-button" data-tab="2">メモ 2</button>
+                <button class="tab-button" data-tab="3">メモ 3</button>
+                <button class="tab-button" data-tab="4">メモ 4</button>
+                <button class="tab-button" data-tab="5">メモ 5</button>
+                <button class="tab-button" data-tab="6">メモ 6</button>
+                <button class="tab-button" data-tab="7">メモ 7</button>
+                <button class="tab-button" data-tab="8">メモ 8</button>
+                <button class="tab-button" data-tab="9">メモ 9</button>
+                <button class="tab-button" data-tab="10">メモ 10</button>
+            </div>
+        </div>
+
+        <div class="action-container">
+            <button id="export-btn" class="icon-button" title="JSONファイルに書き出す">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <span>保存</span>
+            </button>
+            
+            <button id="import-btn" class="icon-button" title="JSONファイルから読み込む">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>読込</span>
+            </button>
+            
+            <input type="file" id="import-file" accept=".json" style="display: none;">
+        </div>
     </div>
 
     <div class="textarea-container">
@@ -97,38 +173,38 @@
     <script>
         const textarea = document.getElementById('notepad');
         const tabButtons = document.querySelectorAll('.tab-button');
+        const exportBtn = document.getElementById('export-btn');
+        const importBtn = document.getElementById('import-btn');
+        const importFile = document.getElementById('import-file');
         
-        // ローカルストレージ用のキーのプレフィックス
         const STORAGE_PREFIX = 'notepad_tab_';
         const ACTIVE_TAB_KEY = 'notepad_active_tab';
 
-        // 現在アクティブなタブ番号（保存されていなければデフォルトは '1'）
         let currentTab = localStorage.getItem(ACTIVE_TAB_KEY) || '1';
 
-        // 1. 初期化処理（ページ読み込み時に実行）
+        // 1. 初期化処理
         window.addEventListener('DOMContentLoaded', () => {
             switchTab(currentTab);
         });
 
-        // 2. 入力時の自動保存（現在選択中のタブに対応するキーに保存）
+        // 2. 入力時の自動保存
         textarea.addEventListener('input', () => {
             localStorage.setItem(STORAGE_PREFIX + currentTab, textarea.value);
         });
 
-        // 3. 各タブボタンにクリックイベントを設定
+        // 3. タブ切り替えイベント
         tabButtons.forEach(button => {
             button.addEventListener('click', (e) => {
-                const selectedTab = e.target.getAttribute('data-tab');
+                const selectedTab = e.currentTarget.getAttribute('data-tab');
                 switchTab(selectedTab);
             });
         });
 
-        // タブを切り替える共通関数
+        // タブ切り替え共通関数
         function switchTab(tabNumber) {
             currentTab = tabNumber;
-            localStorage.setItem(ACTIVE_TAB_KEY, currentTab); // 開いているタブ番号を保存
+            localStorage.setItem(ACTIVE_TAB_KEY, currentTab);
 
-            // ボタンの見た目を更新（アクティブなものに .active クラスをつける）
             tabButtons.forEach(button => {
                 if (button.getAttribute('data-tab') === currentTab) {
                     button.classList.add('active');
@@ -137,13 +213,109 @@
                 }
             });
 
-            // ローカルストレージから該当するタブのデータを読み込んでテキストエリアにセット
             const savedContent = localStorage.getItem(STORAGE_PREFIX + currentTab);
             textarea.value = savedContent !== null ? savedContent : '';
-            
-            // 切り替え後、すぐに文字を打てるようにフォーカスを合わせる
             textarea.focus();
         }
+
+        // 4. JSONエクスポート機能（保存）
+        exportBtn.addEventListener('click', () => {
+            // エクスポート用データ作成（空でもバグらないよう空文字を保証）
+            const backupData = {};
+            for (let i = 1; i <= 10; i++) {
+                const key = STORAGE_PREFIX + i;
+                backupData[key] = localStorage.getItem(key) || "";
+            }
+            backupData[ACTIVE_TAB_KEY] = localStorage.getItem(ACTIVE_TAB_KEY) || "1";
+
+            const jsonString = JSON.stringify(backupData, null, 2);
+
+            try {
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                const now = new Date();
+                const timestamp = now.getFullYear() + 
+                    String(now.getMonth() + 1).padStart(2, '0') + 
+                    String(now.getDate()).padStart(2, '0') + '_' + 
+                    String(now.getHours()).padStart(2, '0') + 
+                    String(now.getMinutes()).padStart(2, '0') + 
+                    String(now.getSeconds()).padStart(2, '0');
+                
+                a.href = url;
+                a.download = `notepad_backup_${timestamp}.json`;
+                
+                // ブラウザ互換性を高めるため、一時的にDOMへ追加してクリック
+                document.body.appendChild(a);
+                a.click();
+                
+                // 確実に動作させるため、少し遅らせてからクリーンアップ
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+
+            } catch (error) {
+                // 【不具合対策フォールバック】ファイルのダウンロードがブラウザに禁止されている環境の場合
+                alert('ブラウザのセキュリティ制限により、ファイルのダウンロードがブロックされました。代わりに、バックアップデータをクリップボードにコピーします。');
+                
+                navigator.clipboard.writeText(jsonString)
+                    .then(() => {
+                        alert('クリップボードにJSONデータをコピーしました！メモ帳などのテキストファイルに貼り付けて保存してください。');
+                    })
+                    .catch(() => {
+                        alert('コピーにも失敗しました。コンソールログをご確認ください。');
+                        console.log(jsonString);
+                    });
+            }
+        });
+
+        // 5. JSONインポート機能（読込）
+        importBtn.addEventListener('click', () => {
+            importFile.click(); 
+        });
+
+        importFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    let importedCount = 0;
+                    
+                    for (let i = 1; i <= 10; i++) {
+                        const key = STORAGE_PREFIX + i;
+                        if (key in data) {
+                            if (data[key] !== null && data[key] !== undefined) {
+                                localStorage.setItem(key, data[key]);
+                            } else {
+                                localStorage.removeItem(key);
+                            }
+                            importedCount++;
+                        }
+                    }
+                    
+                    if (ACTIVE_TAB_KEY in data && data[ACTIVE_TAB_KEY]) {
+                        localStorage.setItem(ACTIVE_TAB_KEY, data[ACTIVE_TAB_KEY]);
+                        currentTab = data[ACTIVE_TAB_KEY];
+                    }
+
+                    if (importedCount > 0) {
+                        alert('インポートが完了しました。');
+                        switchTab(currentTab);
+                    } else {
+                        alert('有効なメモデータが見つかりませんでした。');
+                    }
+                } catch (error) {
+                    alert('JSONファイルの読み込みに失敗しました。正しいファイルか確認してください。');
+                }
+                importFile.value = ''; 
+            };
+            reader.readAsText(file);
+        });
     </script>
 
 </body>
